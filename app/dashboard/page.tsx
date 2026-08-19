@@ -6,15 +6,27 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
-      setSubmitted(true);
+    if (!email) return;
+
+    try {
+      const res = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      if (res.ok) {
+        setSubmitted(true);
+      }
+    } catch (err) {
+      console.error("Submission error:", err);
     }
   };
 
   return (
-    <div className="min-h-screen text-white flex flex-col font-sans">
+    <div className="min-h-screen text-white flex flex-col font-sans bg-black">
       {/* Navigation Bar */}
       <nav className="flex justify-between items-center px-8 py-6 border-b border-zinc-800/80 bg-black/80 backdrop-blur-md sticky top-0 z-50">
         <span className="text-2xl font-black text-red-600 tracking-wider">
@@ -22,7 +34,7 @@ export default function Home() {
         </span>
         <div className="space-x-6 text-sm font-medium text-zinc-400">
           <a href="#features" className="hover:text-white transition">Features</a>
-          <a href="#demo" className="hover:text-white transition">Platform</a>
+          <a href="/dashboard" className="hover:text-white transition">Dashboard</a>
           <a href="#contact" className="hover:text-white transition">Contact</a>
         </div>
       </nav>
@@ -52,7 +64,6 @@ export default function Home() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Card 1 */}
           <div className="group relative bg-zinc-950/80 p-8 rounded-2xl border border-zinc-800/80 hover:border-red-600/80 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-red-900/20 backdrop-blur-md">
             <div className="flex items-center justify-between mb-6">
               <span className="text-red-500 text-3xl font-black">01</span>
@@ -68,7 +79,6 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Card 2 */}
           <div className="group relative bg-zinc-950/80 p-8 rounded-2xl border border-zinc-800/80 hover:border-red-600/80 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-red-900/20 backdrop-blur-md">
             <div className="flex items-center justify-between mb-6">
               <span className="text-red-500 text-3xl font-black">02</span>
@@ -84,13 +94,12 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Card 3 */}
           <div className="group relative bg-zinc-950/80 p-8 rounded-2xl border border-zinc-800/80 hover:border-red-600/80 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-red-900/20 backdrop-blur-md">
             <div className="flex items-center justify-between mb-6">
               <span className="text-red-500 text-3xl font-black">03</span>
               <div className="w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-800 group-hover:border-red-600/40 flex items-center justify-center transition">
                 <svg className="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </div>
             </div>
@@ -98,59 +107,6 @@ export default function Home() {
             <p className="text-zinc-400 text-sm leading-relaxed">
               Custom dashboard visualizers providing real-time game strategy adjustments and player tracking metrics for coaches.
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Interactive Platform Demo Section */}
-      <section id="demo" className="py-12 px-8 max-w-6xl mx-auto">
-        <div className="bg-zinc-950/90 rounded-3xl border border-zinc-800 p-8 backdrop-blur-xl shadow-2xl relative overflow-hidden">
-          <div className="flex flex-wrap items-center justify-between border-b border-zinc-800 pb-6 mb-8 gap-4">
-            <div>
-              <div className="flex items-center space-x-3">
-                <span className="h-3 w-3 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span className="text-xs font-mono uppercase tracking-widest text-zinc-400">Live Hardware Sync Active</span>
-              </div>
-              <h3 className="text-2xl font-bold text-white mt-1">Athlete Command Center</h3>
-            </div>
-            <div className="flex space-x-3">
-              <span className="px-3 py-1 bg-zinc-900 border border-zinc-800 rounded-md text-xs font-mono text-zinc-400">Device ID: TF-8890</span>
-              <span className="px-3 py-1 bg-red-950/50 border border-red-800/40 rounded-md text-xs font-mono text-red-400">Encrypted</span>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="bg-zinc-900/60 p-5 rounded-xl border border-zinc-800/80">
-              <span className="text-xs font-mono text-zinc-500 uppercase">Heart Rate</span>
-              <div className="text-3xl font-extrabold text-white mt-2">168 <span className="text-xs font-normal text-red-500">BPM</span></div>
-              <div className="w-full bg-zinc-800 h-1.5 rounded-full mt-3 overflow-hidden">
-                <div className="bg-red-600 h-full w-[82%] rounded-full"></div>
-              </div>
-            </div>
-
-            <div className="bg-zinc-900/60 p-5 rounded-xl border border-zinc-800/80">
-              <span className="text-xs font-mono text-zinc-500 uppercase">Stamina Index</span>
-              <div className="text-3xl font-extrabold text-white mt-2">94%</div>
-              <div className="w-full bg-zinc-800 h-1.5 rounded-full mt-3 overflow-hidden">
-                <div className="bg-red-600 h-full w-[94%] rounded-full"></div>
-              </div>
-            </div>
-
-            <div className="bg-zinc-900/60 p-5 rounded-xl border border-zinc-800/80">
-              <span className="text-xs font-mono text-zinc-500 uppercase">Explosive Power</span>
-              <div className="text-3xl font-extrabold text-white mt-2">8.2 <span className="text-xs font-normal text-zinc-400">kW</span></div>
-              <div className="w-full bg-zinc-800 h-1.5 rounded-full mt-3 overflow-hidden">
-                <div className="bg-red-600 h-full w-[78%] rounded-full"></div>
-              </div>
-            </div>
-
-            <div className="bg-zinc-900/60 p-5 rounded-xl border border-zinc-800/80">
-              <span className="text-xs font-mono text-zinc-500 uppercase">Recovery Score</span>
-              <div className="text-3xl font-extrabold text-emerald-400 mt-2">Optimal</div>
-              <div className="w-full bg-zinc-800 h-1.5 rounded-full mt-3 overflow-hidden">
-                <div className="bg-emerald-500 h-full w-[100%] rounded-full"></div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -167,7 +123,7 @@ export default function Home() {
 
           {submitted ? (
             <div className="p-4 bg-red-950/40 border border-red-800/60 rounded-xl text-red-400 text-sm font-medium max-w-md mx-auto">
-              ✓ Access request registered! We'll reach out shortly.
+              ✓ Access request registered! Check terminal log.
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
