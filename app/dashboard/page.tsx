@@ -12,33 +12,68 @@ interface Ingredient {
 }
 
 const INGREDIENTS_DATABASE: Ingredient[] = [
-  // Fruits
+  // --- FRUITS ---
   { id: "banana", name: "Banana", category: "fruits", defaultGram: 120, caloriesPer100g: 89 },
+  { id: "watermelon", name: "Watermelon", category: "fruits", defaultGram: 150, caloriesPer100g: 30 },
   { id: "strawberry", name: "Strawberries", category: "fruits", defaultGram: 100, caloriesPer100g: 32 },
   { id: "blueberry", name: "Blueberries", category: "fruits", defaultGram: 80, caloriesPer100g: 57 },
+  { id: "raspberry", name: "Raspberries", category: "fruits", defaultGram: 80, caloriesPer100g: 52 },
+  { id: "blackberry", name: "Blackberries", category: "fruits", defaultGram: 80, caloriesPer100g: 43 },
   { id: "mango", name: "Mango Chunks", category: "fruits", defaultGram: 150, caloriesPer100g: 60 },
-  { id: "apple", name: "Green Apple", category: "fruits", defaultGram: 100, caloriesPer100g: 52 },
+  { id: "apple_green", name: "Green Apple", category: "fruits", defaultGram: 100, caloriesPer100g: 52 },
+  { id: "apple_red", name: "Red Apple", category: "fruits", defaultGram: 100, caloriesPer100g: 52 },
   { id: "pineapple", name: "Pineapple", category: "fruits", defaultGram: 120, caloriesPer100g: 50 },
+  { id: "papaya", name: "Papaya", category: "fruits", defaultGram: 140, caloriesPer100g: 43 },
+  { id: "peach", name: "Peach", category: "fruits", defaultGram: 100, caloriesPer100g: 39 },
+  { id: "pear", name: "Pear", category: "fruits", defaultGram: 120, caloriesPer100g: 57 },
+  { id: "plum", name: "Plum", category: "fruits", defaultGram: 80, caloriesPer100g: 46 },
+  { id: "kiwi", name: "Kiwi", category: "fruits", defaultGram: 70, caloriesPer100g: 61 },
+  { id: "orange", name: "Orange Segments", category: "fruits", defaultGram: 100, caloriesPer100g: 47 },
+  { id: "grapefruit", name: "Grapefruit", category: "fruits", defaultGram: 120, caloriesPer100g: 42 },
+  { id: "grapes_red", name: "Red Grapes", category: "fruits", defaultGram: 90, caloriesPer100g: 69 },
+  { id: "grapes_green", name: "Green Grapes", category: "fruits", defaultGram: 90, caloriesPer100g: 69 },
+  { id: "pomegranate", name: "Pomegranate Seeds", category: "fruits", defaultGram: 80, caloriesPer100g: 83 },
+  { id: "cantaloupe", name: "Cantaloupe Melon", category: "fruits", defaultGram: 150, caloriesPer100g: 34 },
+  { id: "honeydew", name: "Honeydew Melon", category: "fruits", defaultGram: 150, caloriesPer100g: 36 },
+  { id: "cherries", name: "Cherries (Pitted)", category: "fruits", defaultGram: 90, caloriesPer100g: 50 },
+  { id: "figs", name: "Fresh Figs", category: "fruits", defaultGram: 70, caloriesPer100g: 74 },
+  { id: "passionfruit", name: "Passion Fruit", category: "fruits", defaultGram: 50, caloriesPer100g: 97 },
+  { id: "dragonfruit", name: "Dragon Fruit", category: "fruits", defaultGram: 120, caloriesPer100g: 60 },
+  { id: "avocado", name: "Avocado", category: "fruits", defaultGram: 80, caloriesPer100g: 160 },
+  { id: "lemon", name: "Lemon Juice", category: "fruits", defaultGram: 30, caloriesPer100g: 22 },
+  { id: "lime", name: "Lime Juice", category: "fruits", defaultGram: 30, caloriesPer100g: 25 },
 
-  // Veggies
+  // --- VEGGIES ---
+  { id: "carrot", name: "Carrots", category: "veggies", defaultGram: 100, caloriesPer100g: 41 },
   { id: "spinach", name: "Baby Spinach", category: "veggies", defaultGram: 50, caloriesPer100g: 23 },
   { id: "kale", name: "Organic Kale", category: "veggies", defaultGram: 40, caloriesPer100g: 49 },
   { id: "cucumber", name: "Cucumber", category: "veggies", defaultGram: 100, caloriesPer100g: 15 },
   { id: "celery", name: "Celery Stalks", category: "veggies", defaultGram: 80, caloriesPer100g: 16 },
   { id: "beetroot", name: "Beetroot", category: "veggies", defaultGram: 70, caloriesPer100g: 43 },
+  { id: "broccoli", name: "Broccoli Florets", category: "veggies", defaultGram: 80, caloriesPer100g: 34 },
+  { id: "cauliflower", name: "Cauliflower", category: "veggies", defaultGram: 80, caloriesPer100g: 25 },
+  { id: "zucchini", name: "Zucchini", category: "veggies", defaultGram: 100, caloriesPer100g: 17 },
+  { id: "ginger", name: "Fresh Ginger", category: "veggies", defaultGram: 10, caloriesPer100g: 80 },
+  { id: "turmeric", name: "Fresh Turmeric", category: "veggies", defaultGram: 10, caloriesPer100g: 354 },
 
-  // Proteins
+  // --- PROTEINS ---
   { id: "whey_vanilla", name: "Whey Protein (Vanilla)", category: "proteins", defaultGram: 30, caloriesPer100g: 380 },
   { id: "whey_chocolate", name: "Whey Protein (Chocolate)", category: "proteins", defaultGram: 30, caloriesPer100g: 380 },
-  { id: "plant_protein", name: "Pea/Plant Protein", category: "proteins", defaultGram: 30, caloriesPer100g: 370 },
+  { id: "plant_protein", name: "Pea / Plant Protein", category: "proteins", defaultGram: 30, caloriesPer100g: 370 },
+  { id: "collagen", name: "Collagen Peptides", category: "proteins", defaultGram: 20, caloriesPer100g: 360 },
   { id: "greek_yogurt", name: "Greek Yogurt (0%)", category: "proteins", defaultGram: 150, caloriesPer100g: 59 },
+  { id: "egg_whites", name: "Liquid Egg Whites", category: "proteins", defaultGram: 100, caloriesPer100g: 52 },
 
-  // Dairy & Fats
+  // --- DAIRY & FATS ---
   { id: "whole_milk", name: "Whole Milk", category: "fats", defaultGram: 250, caloriesPer100g: 61 },
+  { id: "skim_milk", name: "Skim Milk", category: "fats", defaultGram: 250, caloriesPer100g: 35 },
   { id: "almond_milk", name: "Almond Milk", category: "fats", defaultGram: 250, caloriesPer100g: 15 },
   { id: "oat_milk", name: "Oat Milk", category: "fats", defaultGram: 250, caloriesPer100g: 48 },
+  { id: "coconut_milk", name: "Coconut Milk", category: "fats", defaultGram: 200, caloriesPer100g: 230 },
   { id: "peanut_butter", name: "Peanut Butter", category: "fats", defaultGram: 32, caloriesPer100g: 588 },
+  { id: "almond_butter", name: "Almond Butter", category: "fats", defaultGram: 32, caloriesPer100g: 614 },
   { id: "chia_seeds", name: "Chia Seeds", category: "fats", defaultGram: 15, caloriesPer100g: 486 },
+  { id: "flax_seeds", name: "Ground Flaxseed", category: "fats", defaultGram: 15, caloriesPer100g: 534 },
 ];
 
 export default function DashboardPage() {
@@ -48,6 +83,7 @@ export default function DashboardPage() {
 
   // Ingredient Builder State
   const [activeCategory, setActiveCategory] = useState<"all" | "fruits" | "veggies" | "proteins" | "fats">("all");
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedIngredients, setSelectedIngredients] = useState<{ ingredient: Ingredient; weightGrams: number }[]>([]);
 
   useEffect(() => {
@@ -80,10 +116,11 @@ export default function DashboardPage() {
     0
   );
 
-  const filteredIngredients =
-    activeCategory === "all"
-      ? INGREDIENTS_DATABASE
-      : INGREDIENTS_DATABASE.filter((item) => item.category === activeCategory);
+  const filteredIngredients = INGREDIENTS_DATABASE.filter((item) => {
+    const matchesCategory = activeCategory === "all" || item.category === activeCategory;
+    const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col font-sans">
@@ -216,32 +253,42 @@ export default function DashboardPage() {
                 </p>
               </div>
 
-              {/* Category Filter Buttons */}
-              <div className="flex space-x-2 border-b border-zinc-800 pb-4">
-                {[
-                  { id: "all", label: "All Items" },
-                  { id: "fruits", label: "🍎 Fruits" },
-                  { id: "veggies", label: "🥬 Veggies" },
-                  { id: "proteins", label: "⚡ Proteins" },
-                  { id: "fats", label: "🥛 Dairy & Fats" },
-                ].map((cat) => (
-                  <button
-                    key={cat.id}
-                    onClick={() => setActiveCategory(cat.id as any)}
-                    className={`px-4 py-2 text-xs font-semibold rounded-lg transition ${
-                      activeCategory === cat.id
-                        ? "bg-zinc-100 text-black"
-                        : "bg-zinc-900 text-zinc-400 hover:bg-zinc-800 hover:text-white"
-                    }`}
-                  >
-                    {cat.label}
-                  </button>
-                ))}
+              {/* Filters & Search Bar */}
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-zinc-800 pb-4">
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    { id: "all", label: "All Items" },
+                    { id: "fruits", label: "🍉 Fruits" },
+                    { id: "veggies", label: "🥕 Veggies" },
+                    { id: "proteins", label: "⚡ Proteins" },
+                    { id: "fats", label: "🥛 Dairy & Fats" },
+                  ].map((cat) => (
+                    <button
+                      key={cat.id}
+                      onClick={() => setActiveCategory(cat.id as any)}
+                      className={`px-4 py-2 text-xs font-semibold rounded-lg transition ${
+                        activeCategory === cat.id
+                          ? "bg-zinc-100 text-black"
+                          : "bg-zinc-900 text-zinc-400 hover:bg-zinc-800 hover:text-white"
+                      }`}
+                    >
+                      {cat.label}
+                    </button>
+                  ))}
+                </div>
+
+                <input
+                  type="text"
+                  placeholder="Search ingredient (e.g. Watermelon)..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="bg-zinc-900 border border-zinc-800 text-white text-xs rounded-lg px-4 py-2.5 focus:outline-none focus:border-red-600 w-full md:w-64"
+                />
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                {/* Available Ingredients Catalog */}
-                <div className="lg:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {/* Available Ingredients Grid (Scrollable) */}
+                <div className="lg:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-3 max-h-[550px] overflow-y-auto pr-2">
                   {filteredIngredients.map((item) => (
                     <div
                       key={item.id}
@@ -346,7 +393,6 @@ export default function DashboardPage() {
                 </div>
               </div>
 
-              {/* Motor Power Output Stream */}
               <div className="p-6 bg-zinc-900/40 rounded-xl border border-zinc-800 space-y-4">
                 <div className="flex justify-between items-center">
                   <h3 className="text-sm font-bold text-zinc-300">BLADE TORQUE & RESISTANCE WAVEFORM</h3>
