@@ -86,6 +86,13 @@ export default function DashboardPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedIngredients, setSelectedIngredients] = useState<{ ingredient: Ingredient; weightGrams: number }[]>([]);
 
+  // STEP 1: Blending Controls & Voice Recognition State
+  const [isBlending, setIsBlending] = useState(false);
+  const [blendSecondsLeft, setBlendSecondsLeft] = useState(60);
+  const [selectedPreset, setSelectedPreset] = useState("Smoothie");
+  const [voiceActive, setVoiceActive] = useState(false);
+  const [voiceLog, setVoiceLog] = useState<string>("Mic Standby");
+
   useEffect(() => {
     const interval = setInterval(() => {
       setHeartRate((prev) => prev + Math.floor(Math.random() * 5) - 2);
@@ -93,6 +100,44 @@ export default function DashboardPage() {
     }, 2000);
     return () => clearInterval(interval);
   }, []);
+
+  // Timer logic for active blend cycle
+  useEffect(() => {
+    let timer: any;
+    if (isBlending && blendSecondsLeft > 0) {
+      timer = setInterval(() => {
+        setBlendSecondsLeft((prev) => prev - 1);
+      }, 1000);
+    } else if (blendSecondsLeft === 0) {
+      setIsBlending(false);
+      setBlendSecondsLeft(60);
+    }
+    return () => clearInterval(timer);
+  }, [isBlending, blendSecondsLeft]);
+
+  // Voice Command Simulator Toggle
+  const toggleVoiceListener = () => {
+    if (!voiceActive) {
+      setVoiceActive(true);
+      setVoiceLog('Listening... Try saying "START BLEND"');
+    } else {
+      setVoiceActive(false);
+      setVoiceLog("Mic Standby");
+    }
+  };
+
+  const triggerVoiceCommand = (cmd: string) => {
+    setVoiceLog(`Recognized: "${cmd}"`);
+    if (cmd === "START BLEND" && !isBlending) {
+      setIsBlending(true);
+    } else if (cmd === "STOP") {
+      setIsBlending(false);
+      setBlendSecondsLeft(60);
+    } else if (cmd === "PULSE") {
+      setIsBlending(true);
+      setTimeout(() => setIsBlending(false), 3000);
+    }
+  };
 
   const addIngredient = (item: Ingredient) => {
     setSelectedIngredients((prev) => {
@@ -136,8 +181,8 @@ export default function DashboardPage() {
         </div>
         <div className="flex items-center space-x-4 text-xs font-mono">
           <span className="flex items-center space-x-2 bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full border border-emerald-500/20">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span>BLENDER: SYNCHRONIZED</span>
+            <span className={`w-2 h-2 rounded-full ${isBlending ? "bg-red-500 animate-ping" : "bg-emerald-400 animate-pulse"}`}></span>
+            <span>{isBlending ? "BLENDER: ACTIVE" : "BLENDER: SYNCHRONIZED"}</span>
           </span>
           <span className="text-zinc-500">ATHLETE ID: #TF-042</span>
         </div>
@@ -249,8 +294,100 @@ export default function DashboardPage() {
               <div>
                 <h2 className="text-2xl font-black tracking-tight">SMART RECIPE & LOAD CELL MEASUREMENT</h2>
                 <p className="text-sm text-zinc-400">
-                  Select ingredients to measure quantity and calculate real-time weight inside the blender jar.
+                  Select ingredients to measure quantity and control motor blending cycles.
                 </p>
+              </div>
+
+              {/* STEP 1: Interactive Blend Control & Voice Panel */}
+              <div className="p-6 bg-zinc-900/90 border border-zinc-800 rounded-2xl space-y-6">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                  <div>
+                    <h3 className="text-base font-bold text-white flex items-center space-x-2">
+                      <span>BLENDER MOTOR CONTROL</span>
+                      {isBlending && <span className="text-xs font-mono text-red-500 animate-pulse">[MOTOR SPINNING]</span>}
+                    </h3>
+                    <p className="text-xs text-zinc-400">Select preset or trigger hardware voice command</p>
+                  </div>
+
+                  {/* Voice Hardware Recognition Toggle */}
+                  <div className="flex items-center space-x-3 bg-black/60 p-2.5 rounded-xl border border-zinc-800">
+                    <button
+                      onClick={toggleVoiceListener}
+                      className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition ${
+                        voiceActive
+                          ? "bg-red-600 text-white animate-pulse"
+                          : "bg-zinc-800 text-zinc-400 hover:text-white"
+                      }`}
+                    >
+                      🎙 {voiceActive ? "MIC ON" : "LISTEN FOR VOICE"}
+                    </button>
+                    <span className="text-xs font-mono text-zinc-400">{voiceLog}</span>
+                  </div>
+                </div>
+
+                {/* Simulated Voice Command Quick Triggers (when mic active) */}
+                {voiceActive && (
+                  <div className="p-3 bg-red-950/20 border border-red-900/40 rounded-xl flex items-center justify-between text-xs font-mono">
+                    <span className="text-red-400">Hardware Voice Prompts:</span>
+                    <div className="space-x-2">
+                      <button
+                        onClick={() => triggerVoiceCommand("START BLEND")}
+                        className="px-2.5 py-1 bg-red-600/30 border border-red-600/50 hover:bg-red-600 text-white rounded"
+                      >
+                        Say "START BLEND"
+                      </button>
+                      <button
+                        onClick={() => triggerVoiceCommand("PULSE")}
+                        className="px-2.5 py-1 bg-zinc-800 border border-zinc-700 hover:bg-zinc-700 text-white rounded"
+                      >
+                        Say "PULSE"
+                      </button>
+                      <button
+                        onClick={() => triggerVoiceCommand("STOP")}
+                        className="px-2.5 py-1 bg-zinc-800 border border-zinc-700 hover:bg-zinc-700 text-white rounded"
+                      >
+                        Say "STOP"
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Mode Presets & Start Action */}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                  <div className="md:col-span-3 flex flex-wrap gap-2">
+                    {["Smoothie", "Protein Shake", "Ice Crush", "Pulse"].map((mode) => (
+                      <button
+                        key={mode}
+                        onClick={() => setSelectedPreset(mode)}
+                        className={`px-4 py-2.5 text-xs font-semibold rounded-xl transition ${
+                          selectedPreset === mode
+                            ? "bg-white text-black font-bold"
+                            : "bg-zinc-800 text-zinc-400 hover:text-white"
+                        }`}
+                      >
+                        {mode} Mode
+                      </button>
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={() => {
+                      if (isBlending) {
+                        setIsBlending(false);
+                        setBlendSecondsLeft(60);
+                      } else {
+                        setIsBlending(true);
+                      }
+                    }}
+                    className={`w-full py-3.5 text-xs font-bold rounded-xl transition uppercase tracking-wider ${
+                      isBlending
+                        ? "bg-red-600 hover:bg-red-700 text-white animate-pulse"
+                        : "bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold"
+                    }`}
+                  >
+                    {isBlending ? `STOP BLEND (${blendSecondsLeft}s)` : `START ${selectedPreset.toUpperCase()}`}
+                  </button>
+                </div>
               </div>
 
               {/* Filters & Search Bar */}
@@ -287,8 +424,8 @@ export default function DashboardPage() {
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                {/* Available Ingredients Grid (Scrollable) */}
-                <div className="lg:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-3 max-h-[550px] overflow-y-auto pr-2">
+                {/* Available Ingredients Grid */}
+                <div className="lg:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-3 max-h-[500px] overflow-y-auto pr-2">
                   {filteredIngredients.map((item) => (
                     <div
                       key={item.id}
@@ -367,29 +504,29 @@ export default function DashboardPage() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="p-5 bg-zinc-900/60 rounded-xl border border-zinc-800 space-y-4">
                   <div className="text-xs font-bold text-zinc-400 tracking-wider">MOTOR SPEED (RPM)</div>
-                  <div className="text-3xl font-black text-white">22,400 <span className="text-sm text-zinc-500">RPM</span></div>
+                  <div className="text-3xl font-black text-white">{isBlending ? "22,400" : "0"} <span className="text-sm text-zinc-500">RPM</span></div>
                   <div className="w-full bg-zinc-800 h-2 rounded-full overflow-hidden">
-                    <div className="bg-red-600 h-full w-[85%]"></div>
+                    <div className={`bg-red-600 h-full transition-all duration-500 ${isBlending ? "w-[85%]" : "w-0"}`}></div>
                   </div>
-                  <p className="text-xs text-zinc-500">High-torque pulse active</p>
+                  <p className="text-xs text-zinc-500">{isBlending ? "High-torque pulse active" : "Motor idle"}</p>
                 </div>
 
                 <div className="p-5 bg-zinc-900/60 rounded-xl border border-zinc-800 space-y-4">
                   <div className="text-xs font-bold text-zinc-400 tracking-wider">BLEND DURATION</div>
-                  <div className="text-3xl font-black text-white">00:45 <span className="text-sm text-zinc-500">sec</span></div>
+                  <div className="text-3xl font-black text-white">{isBlending ? `00:${60 - blendSecondsLeft}` : "00:00"} <span className="text-sm text-zinc-500">sec</span></div>
                   <div className="w-full bg-zinc-800 h-2 rounded-full overflow-hidden">
-                    <div className="bg-emerald-500 h-full w-[45%]"></div>
+                    <div className="bg-emerald-500 h-full transition-all duration-500" style={{ width: isBlending ? `${((60 - blendSecondsLeft) / 60) * 100}%` : "0%" }}></div>
                   </div>
                   <p className="text-xs text-zinc-500">Target blend cycle duration: 60s</p>
                 </div>
 
                 <div className="p-5 bg-zinc-900/60 rounded-xl border border-zinc-800 space-y-4">
                   <div className="text-xs font-bold text-zinc-400 tracking-wider">CONSISTENCY SCORE</div>
-                  <div className="text-3xl font-black text-emerald-400">98.2%</div>
+                  <div className="text-3xl font-black text-emerald-400">{isBlending ? "98.2%" : "N/A"}</div>
                   <div className="w-full bg-zinc-800 h-2 rounded-full overflow-hidden">
-                    <div className="bg-emerald-400 h-full w-[98%]"></div>
+                    <div className={`bg-emerald-400 h-full transition-all duration-500 ${isBlending ? "w-[98%]" : "w-0"}`}></div>
                   </div>
-                  <p className="text-xs text-zinc-500">Optimal micro-emulsion reached</p>
+                  <p className="text-xs text-zinc-500">{isBlending ? "Optimal micro-emulsion reached" : "Awaiting active cycle"}</p>
                 </div>
               </div>
 
@@ -399,7 +536,7 @@ export default function DashboardPage() {
                   <span className="text-xs font-mono text-zinc-500">TELEMETRY STREAM</span>
                 </div>
                 <div className="h-48 border border-dashed border-zinc-700/60 rounded-lg flex items-center justify-center bg-zinc-950/50 text-zinc-600 font-mono text-xs">
-                  [ Real-time Motor Load & Resistance Curve Stream ]
+                  {isBlending ? "[ Dynamic High-Speed Torque Stream Active ]" : "[ Standby - Motor Inactive ]"}
                 </div>
               </div>
             </div>
