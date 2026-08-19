@@ -24,6 +24,7 @@ export default function Home() {
           <a href="#features" className="hover:text-white transition">Features</a>
           <a href="#demo" className="hover:text-white transition">Platform</a>
           <a href="#contact" className="hover:text-white transition">Contact</a>
+          <a href="/dashboard" className="hover:text-white transition-colors">  Dashboard</a>
         </div>
       </nav>
 
