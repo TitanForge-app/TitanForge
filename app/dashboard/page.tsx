@@ -136,6 +136,55 @@ export default function DashboardPage() {
               </div>
             </div>
           )}
+
+          {selectedTab === "tactical" && (
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-2xl font-black tracking-tight">TACTICAL PERFORMANCE & LOAD</h2>
+                <p className="text-sm text-zinc-400">Spatial positioning, sprint acceleration, and tactical efficiency.</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="p-5 bg-zinc-900/60 rounded-xl border border-zinc-800 space-y-4">
+                  <div className="text-xs font-bold text-zinc-400 tracking-wider">SPRINT ACCELERATION</div>
+                  <div className="text-3xl font-black text-white">4.82 <span className="text-sm text-zinc-500">m/s²</span></div>
+                  <div className="w-full bg-zinc-800 h-2 rounded-full overflow-hidden">
+                    <div className="bg-red-600 h-full w-[78%]"></div>
+                  </div>
+                  <p className="text-xs text-zinc-500">Top 5% burst threshold recorded</p>
+                </div>
+
+                <div className="p-5 bg-zinc-900/60 rounded-xl border border-zinc-800 space-y-4">
+                  <div className="text-xs font-bold text-zinc-400 tracking-wider">ACTIVE TIME ON COURT</div>
+                  <div className="text-3xl font-black text-white">28:14 <span className="text-sm text-zinc-500">min</span></div>
+                  <div className="w-full bg-zinc-800 h-2 rounded-full overflow-hidden">
+                    <div className="bg-emerald-500 h-full w-[60%]"></div>
+                  </div>
+                  <p className="text-xs text-zinc-500">Rotation load optimal</p>
+                </div>
+
+                <div className="p-5 bg-zinc-900/60 rounded-xl border border-zinc-800 space-y-4">
+                  <div className="text-xs font-bold text-zinc-400 tracking-wider">TACTICAL IMPACT SCORE</div>
+                  <div className="text-3xl font-black text-emerald-400">92.4</div>
+                  <div className="w-full bg-zinc-800 h-2 rounded-full overflow-hidden">
+                    <div className="bg-emerald-400 h-full w-[92%]"></div>
+                  </div>
+                  <p className="text-xs text-zinc-500">High efficiency rating</p>
+                </div>
+              </div>
+
+              {/* Spatial Court Heatmap Visual Placeholder */}
+              <div className="p-6 bg-zinc-900/40 rounded-xl border border-zinc-800 space-y-4">
+                <div className="flex justify-between items-center">
+                  <h3 className="text-sm font-bold text-zinc-300">COURT SPATIAL DENSITY HEATMAP</h3>
+                  <span className="text-xs font-mono text-zinc-500">LIVE TRACKING ACTIVE</span>
+                </div>
+                <div className="h-48 border border-dashed border-zinc-700/60 rounded-lg flex items-center justify-center bg-zinc-950/50 text-zinc-600 font-mono text-xs">
+                  [ Spatial Coordinate Grid & Movement Density Visualization ]
+                </div>
+              </div>
+            </div>
+          )}
         </main>
       </div>
     </div>
