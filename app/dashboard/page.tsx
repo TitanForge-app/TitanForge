@@ -9,71 +9,75 @@ interface Ingredient {
   category: "fruits" | "veggies" | "proteins" | "fats";
   defaultGram: number;
   caloriesPer100g: number;
+  proteinPer100g: number;
+  carbsPer100g: number;
+  fatPer100g: number;
+  fiberPer100g: number;
 }
 
 const INGREDIENTS_DATABASE: Ingredient[] = [
   // --- FRUITS ---
-  { id: "banana", name: "Banana", category: "fruits", defaultGram: 120, caloriesPer100g: 89 },
-  { id: "watermelon", name: "Watermelon", category: "fruits", defaultGram: 150, caloriesPer100g: 30 },
-  { id: "strawberry", name: "Strawberries", category: "fruits", defaultGram: 100, caloriesPer100g: 32 },
-  { id: "blueberry", name: "Blueberries", category: "fruits", defaultGram: 80, caloriesPer100g: 57 },
-  { id: "raspberry", name: "Raspberries", category: "fruits", defaultGram: 80, caloriesPer100g: 52 },
-  { id: "blackberry", name: "Blackberries", category: "fruits", defaultGram: 80, caloriesPer100g: 43 },
-  { id: "mango", name: "Mango Chunks", category: "fruits", defaultGram: 150, caloriesPer100g: 60 },
-  { id: "apple_green", name: "Green Apple", category: "fruits", defaultGram: 100, caloriesPer100g: 52 },
-  { id: "apple_red", name: "Red Apple", category: "fruits", defaultGram: 100, caloriesPer100g: 52 },
-  { id: "pineapple", name: "Pineapple", category: "fruits", defaultGram: 120, caloriesPer100g: 50 },
-  { id: "papaya", name: "Papaya", category: "fruits", defaultGram: 140, caloriesPer100g: 43 },
-  { id: "peach", name: "Peach", category: "fruits", defaultGram: 100, caloriesPer100g: 39 },
-  { id: "pear", name: "Pear", category: "fruits", defaultGram: 120, caloriesPer100g: 57 },
-  { id: "plum", name: "Plum", category: "fruits", defaultGram: 80, caloriesPer100g: 46 },
-  { id: "kiwi", name: "Kiwi", category: "fruits", defaultGram: 70, caloriesPer100g: 61 },
-  { id: "orange", name: "Orange Segments", category: "fruits", defaultGram: 100, caloriesPer100g: 47 },
-  { id: "grapefruit", name: "Grapefruit", category: "fruits", defaultGram: 120, caloriesPer100g: 42 },
-  { id: "grapes_red", name: "Red Grapes", category: "fruits", defaultGram: 90, caloriesPer100g: 69 },
-  { id: "grapes_green", name: "Green Grapes", category: "fruits", defaultGram: 90, caloriesPer100g: 69 },
-  { id: "pomegranate", name: "Pomegranate Seeds", category: "fruits", defaultGram: 80, caloriesPer100g: 83 },
-  { id: "cantaloupe", name: "Cantaloupe Melon", category: "fruits", defaultGram: 150, caloriesPer100g: 34 },
-  { id: "honeydew", name: "Honeydew Melon", category: "fruits", defaultGram: 150, caloriesPer100g: 36 },
-  { id: "cherries", name: "Cherries (Pitted)", category: "fruits", defaultGram: 90, caloriesPer100g: 50 },
-  { id: "figs", name: "Fresh Figs", category: "fruits", defaultGram: 70, caloriesPer100g: 74 },
-  { id: "passionfruit", name: "Passion Fruit", category: "fruits", defaultGram: 50, caloriesPer100g: 97 },
-  { id: "dragonfruit", name: "Dragon Fruit", category: "fruits", defaultGram: 120, caloriesPer100g: 60 },
-  { id: "avocado", name: "Avocado", category: "fruits", defaultGram: 80, caloriesPer100g: 160 },
-  { id: "lemon", name: "Lemon Juice", category: "fruits", defaultGram: 30, caloriesPer100g: 22 },
-  { id: "lime", name: "Lime Juice", category: "fruits", defaultGram: 30, caloriesPer100g: 25 },
+  { id: "banana", name: "Banana", category: "fruits", defaultGram: 120, caloriesPer100g: 89, proteinPer100g: 1.1, carbsPer100g: 22.8, fatPer100g: 0.3, fiberPer100g: 2.6 },
+  { id: "watermelon", name: "Watermelon", category: "fruits", defaultGram: 150, caloriesPer100g: 30, proteinPer100g: 0.6, carbsPer100g: 7.6, fatPer100g: 0.2, fiberPer100g: 0.4 },
+  { id: "strawberry", name: "Strawberries", category: "fruits", defaultGram: 100, caloriesPer100g: 32, proteinPer100g: 0.7, carbsPer100g: 7.7, fatPer100g: 0.3, fiberPer100g: 2.0 },
+  { id: "blueberry", name: "Blueberries", category: "fruits", defaultGram: 80, caloriesPer100g: 57, proteinPer100g: 0.7, carbsPer100g: 14.5, fatPer100g: 0.3, fiberPer100g: 2.4 },
+  { id: "raspberry", name: "Raspberries", category: "fruits", defaultGram: 80, caloriesPer100g: 52, proteinPer100g: 1.2, carbsPer100g: 11.9, fatPer100g: 0.7, fiberPer100g: 6.5 },
+  { id: "blackberry", name: "Blackberries", category: "fruits", defaultGram: 80, caloriesPer100g: 43, proteinPer100g: 1.4, carbsPer100g: 9.6, fatPer100g: 0.5, fiberPer100g: 5.3 },
+  { id: "mango", name: "Mango Chunks", category: "fruits", defaultGram: 150, caloriesPer100g: 60, proteinPer100g: 0.8, carbsPer100g: 15.0, fatPer100g: 0.4, fiberPer100g: 1.6 },
+  { id: "apple_green", name: "Green Apple", category: "fruits", defaultGram: 100, caloriesPer100g: 52, proteinPer100g: 0.3, carbsPer100g: 13.8, fatPer100g: 0.2, fiberPer100g: 2.4 },
+  { id: "apple_red", name: "Red Apple", category: "fruits", defaultGram: 100, caloriesPer100g: 52, proteinPer100g: 0.3, carbsPer100g: 13.8, fatPer100g: 0.2, fiberPer100g: 2.4 },
+  { id: "pineapple", name: "Pineapple", category: "fruits", defaultGram: 120, caloriesPer100g: 50, proteinPer100g: 0.5, carbsPer100g: 13.1, fatPer100g: 0.1, fiberPer100g: 1.4 },
+  { id: "papaya", name: "Papaya", category: "fruits", defaultGram: 140, caloriesPer100g: 43, proteinPer100g: 0.5, carbsPer100g: 10.8, fatPer100g: 0.3, fiberPer100g: 1.7 },
+  { id: "peach", name: "Peach", category: "fruits", defaultGram: 100, caloriesPer100g: 39, proteinPer100g: 0.9, carbsPer100g: 9.5, fatPer100g: 0.3, fiberPer100g: 1.5 },
+  { id: "pear", name: "Pear", category: "fruits", defaultGram: 120, caloriesPer100g: 57, proteinPer100g: 0.4, carbsPer100g: 15.2, fatPer100g: 0.1, fiberPer100g: 3.1 },
+  { id: "plum", name: "Plum", category: "fruits", defaultGram: 80, caloriesPer100g: 46, proteinPer100g: 0.7, carbsPer100g: 11.4, fatPer100g: 0.3, fiberPer100g: 1.4 },
+  { id: "kiwi", name: "Kiwi", category: "fruits", defaultGram: 70, caloriesPer100g: 61, proteinPer100g: 1.1, carbsPer100g: 14.7, fatPer100g: 0.5, fiberPer100g: 3.0 },
+  { id: "orange", name: "Orange Segments", category: "fruits", defaultGram: 100, caloriesPer100g: 47, proteinPer100g: 0.9, carbsPer100g: 11.8, fatPer100g: 0.1, fiberPer100g: 2.4 },
+  { id: "grapefruit", name: "Grapefruit", category: "fruits", defaultGram: 120, caloriesPer100g: 42, proteinPer100g: 0.8, carbsPer100g: 10.7, fatPer100g: 0.1, fiberPer100g: 1.6 },
+  { id: "grapes_red", name: "Red Grapes", category: "fruits", defaultGram: 90, caloriesPer100g: 69, proteinPer100g: 0.7, carbsPer100g: 18.1, fatPer100g: 0.2, fiberPer100g: 0.9 },
+  { id: "grapes_green", name: "Green Grapes", category: "fruits", defaultGram: 90, caloriesPer100g: 69, proteinPer100g: 0.7, carbsPer100g: 18.1, fatPer100g: 0.2, fiberPer100g: 0.9 },
+  { id: "pomegranate", name: "Pomegranate Seeds", category: "fruits", defaultGram: 80, caloriesPer100g: 83, proteinPer100g: 1.7, carbsPer100g: 18.7, fatPer100g: 1.2, fiberPer100g: 4.0 },
+  { id: "cantaloupe", name: "Cantaloupe Melon", category: "fruits", defaultGram: 150, caloriesPer100g: 34, proteinPer100g: 0.8, carbsPer100g: 8.2, fatPer100g: 0.2, fiberPer100g: 0.9 },
+  { id: "honeydew", name: "Honeydew Melon", category: "fruits", defaultGram: 150, caloriesPer100g: 36, proteinPer100g: 0.5, carbsPer100g: 9.1, fatPer100g: 0.1, fiberPer100g: 0.8 },
+  { id: "cherries", name: "Cherries (Pitted)", category: "fruits", defaultGram: 90, caloriesPer100g: 50, proteinPer100g: 1.0, carbsPer100g: 12.0, fatPer100g: 0.3, fiberPer100g: 1.6 },
+  { id: "figs", name: "Fresh Figs", category: "fruits", defaultGram: 70, caloriesPer100g: 74, proteinPer100g: 0.8, carbsPer100g: 19.2, fatPer100g: 0.3, fiberPer100g: 2.9 },
+  { id: "passionfruit", name: "Passion Fruit", category: "fruits", defaultGram: 50, caloriesPer100g: 97, proteinPer100g: 2.2, carbsPer100g: 23.4, fatPer100g: 0.7, fiberPer100g: 10.4 },
+  { id: "dragonfruit", name: "Dragon Fruit", category: "fruits", defaultGram: 120, caloriesPer100g: 60, proteinPer100g: 1.2, carbsPer100g: 13.0, fatPer100g: 0.0, fiberPer100g: 2.9 },
+  { id: "avocado", name: "Avocado", category: "fruits", defaultGram: 80, caloriesPer100g: 160, proteinPer100g: 2.0, carbsPer100g: 8.5, fatPer100g: 14.7, fiberPer100g: 6.7 },
+  { id: "lemon", name: "Lemon Juice", category: "fruits", defaultGram: 30, caloriesPer100g: 22, proteinPer100g: 0.4, carbsPer100g: 6.9, fatPer100g: 0.2, fiberPer100g: 0.3 },
+  { id: "lime", name: "Lime Juice", category: "fruits", defaultGram: 30, caloriesPer100g: 25, proteinPer100g: 0.4, carbsPer100g: 8.4, fatPer100g: 0.1, fiberPer100g: 0.4 },
 
   // --- VEGGIES ---
-  { id: "carrot", name: "Carrots", category: "veggies", defaultGram: 100, caloriesPer100g: 41 },
-  { id: "spinach", name: "Baby Spinach", category: "veggies", defaultGram: 50, caloriesPer100g: 23 },
-  { id: "kale", name: "Organic Kale", category: "veggies", defaultGram: 40, caloriesPer100g: 49 },
-  { id: "cucumber", name: "Cucumber", category: "veggies", defaultGram: 100, caloriesPer100g: 15 },
-  { id: "celery", name: "Celery Stalks", category: "veggies", defaultGram: 80, caloriesPer100g: 16 },
-  { id: "beetroot", name: "Beetroot", category: "veggies", defaultGram: 70, caloriesPer100g: 43 },
-  { id: "broccoli", name: "Broccoli Florets", category: "veggies", defaultGram: 80, caloriesPer100g: 34 },
-  { id: "cauliflower", name: "Cauliflower", category: "veggies", defaultGram: 80, caloriesPer100g: 25 },
-  { id: "zucchini", name: "Zucchini", category: "veggies", defaultGram: 100, caloriesPer100g: 17 },
-  { id: "ginger", name: "Fresh Ginger", category: "veggies", defaultGram: 10, caloriesPer100g: 80 },
-  { id: "turmeric", name: "Fresh Turmeric", category: "veggies", defaultGram: 10, caloriesPer100g: 354 },
+  { id: "carrot", name: "Carrots", category: "veggies", defaultGram: 100, caloriesPer100g: 41, proteinPer100g: 0.9, carbsPer100g: 9.6, fatPer100g: 0.2, fiberPer100g: 2.8 },
+  { id: "spinach", name: "Baby Spinach", category: "veggies", defaultGram: 50, caloriesPer100g: 23, proteinPer100g: 2.9, carbsPer100g: 3.6, fatPer100g: 0.4, fiberPer100g: 2.2 },
+  { id: "kale", name: "Organic Kale", category: "veggies", defaultGram: 40, caloriesPer100g: 49, proteinPer100g: 4.3, carbsPer100g: 8.8, fatPer100g: 0.9, fiberPer100g: 3.6 },
+  { id: "cucumber", name: "Cucumber", category: "veggies", defaultGram: 100, caloriesPer100g: 15, proteinPer100g: 0.7, carbsPer100g: 3.6, fatPer100g: 0.1, fiberPer100g: 0.5 },
+  { id: "celery", name: "Celery Stalks", category: "veggies", defaultGram: 80, caloriesPer100g: 16, proteinPer100g: 0.7, carbsPer100g: 3.0, fatPer100g: 0.2, fiberPer100g: 1.6 },
+  { id: "beetroot", name: "Beetroot", category: "veggies", defaultGram: 70, caloriesPer100g: 43, proteinPer100g: 1.6, carbsPer100g: 9.6, fatPer100g: 0.2, fiberPer100g: 2.8 },
+  { id: "broccoli", name: "Broccoli Florets", category: "veggies", defaultGram: 80, caloriesPer100g: 34, proteinPer100g: 2.8, carbsPer100g: 6.6, fatPer100g: 0.4, fiberPer100g: 2.6 },
+  { id: "cauliflower", name: "Cauliflower", category: "veggies", defaultGram: 80, caloriesPer100g: 25, proteinPer100g: 1.9, carbsPer100g: 5.0, fatPer100g: 0.3, fiberPer100g: 2.0 },
+  { id: "zucchini", name: "Zucchini", category: "veggies", defaultGram: 100, caloriesPer100g: 17, proteinPer100g: 1.2, carbsPer100g: 3.1, fatPer100g: 0.3, fiberPer100g: 1.0 },
+  { id: "ginger", name: "Fresh Ginger", category: "veggies", defaultGram: 10, caloriesPer100g: 80, proteinPer100g: 1.8, carbsPer100g: 17.8, fatPer100g: 0.8, fiberPer100g: 2.0 },
+  { id: "turmeric", name: "Fresh Turmeric", category: "veggies", defaultGram: 10, caloriesPer100g: 354, proteinPer100g: 7.8, carbsPer100g: 64.9, fatPer100g: 9.9, fiberPer100g: 21.1 },
 
   // --- PROTEINS ---
-  { id: "whey_vanilla", name: "Whey Protein (Vanilla)", category: "proteins", defaultGram: 30, caloriesPer100g: 380 },
-  { id: "whey_chocolate", name: "Whey Protein (Chocolate)", category: "proteins", defaultGram: 30, caloriesPer100g: 380 },
-  { id: "plant_protein", name: "Pea / Plant Protein", category: "proteins", defaultGram: 30, caloriesPer100g: 370 },
-  { id: "collagen", name: "Collagen Peptides", category: "proteins", defaultGram: 20, caloriesPer100g: 360 },
-  { id: "greek_yogurt", name: "Greek Yogurt (0%)", category: "proteins", defaultGram: 150, caloriesPer100g: 59 },
-  { id: "egg_whites", name: "Liquid Egg Whites", category: "proteins", defaultGram: 100, caloriesPer100g: 52 },
+  { id: "whey_vanilla", name: "Whey Protein (Vanilla)", category: "proteins", defaultGram: 30, caloriesPer100g: 380, proteinPer100g: 80.0, carbsPer100g: 6.0, fatPer100g: 3.0, fiberPer100g: 0.0 },
+  { id: "whey_chocolate", name: "Whey Protein (Chocolate)", category: "proteins", defaultGram: 30, caloriesPer100g: 380, proteinPer100g: 76.0, carbsPer100g: 8.0, fatPer100g: 3.5, fiberPer100g: 1.0 },
+  { id: "plant_protein", name: "Pea / Plant Protein", category: "proteins", defaultGram: 30, caloriesPer100g: 370, proteinPer100g: 75.0, carbsPer100g: 5.0, fatPer100g: 5.0, fiberPer100g: 3.0 },
+  { id: "collagen", name: "Collagen Peptides", category: "proteins", defaultGram: 20, caloriesPer100g: 360, proteinPer100g: 90.0, carbsPer100g: 0.0, fatPer100g: 0.0, fiberPer100g: 0.0 },
+  { id: "greek_yogurt", name: "Greek Yogurt (0%)", category: "proteins", defaultGram: 150, caloriesPer100g: 59, proteinPer100g: 10.0, carbsPer100g: 3.6, fatPer100g: 0.4, fiberPer100g: 0.0 },
+  { id: "egg_whites", name: "Liquid Egg Whites", category: "proteins", defaultGram: 100, caloriesPer100g: 52, proteinPer100g: 11.0, carbsPer100g: 0.7, fatPer100g: 0.2, fiberPer100g: 0.0 },
 
   // --- DAIRY & FATS ---
-  { id: "whole_milk", name: "Whole Milk", category: "fats", defaultGram: 250, caloriesPer100g: 61 },
-  { id: "skim_milk", name: "Skim Milk", category: "fats", defaultGram: 250, caloriesPer100g: 35 },
-  { id: "almond_milk", name: "Almond Milk", category: "fats", defaultGram: 250, caloriesPer100g: 15 },
-  { id: "oat_milk", name: "Oat Milk", category: "fats", defaultGram: 250, caloriesPer100g: 48 },
-  { id: "coconut_milk", name: "Coconut Milk", category: "fats", defaultGram: 200, caloriesPer100g: 230 },
-  { id: "peanut_butter", name: "Peanut Butter", category: "fats", defaultGram: 32, caloriesPer100g: 588 },
-  { id: "almond_butter", name: "Almond Butter", category: "fats", defaultGram: 32, caloriesPer100g: 614 },
-  { id: "chia_seeds", name: "Chia Seeds", category: "fats", defaultGram: 15, caloriesPer100g: 486 },
-  { id: "flax_seeds", name: "Ground Flaxseed", category: "fats", defaultGram: 15, caloriesPer100g: 534 },
+  { id: "whole_milk", name: "Whole Milk", category: "fats", defaultGram: 250, caloriesPer100g: 61, proteinPer100g: 3.2, carbsPer100g: 4.8, fatPer100g: 3.3, fiberPer100g: 0.0 },
+  { id: "skim_milk", name: "Skim Milk", category: "fats", defaultGram: 250, caloriesPer100g: 35, proteinPer100g: 3.4, carbsPer100g: 5.0, fatPer100g: 0.1, fiberPer100g: 0.0 },
+  { id: "almond_milk", name: "Almond Milk", category: "fats", defaultGram: 250, caloriesPer100g: 15, proteinPer100g: 0.5, carbsPer100g: 0.3, fatPer100g: 1.1, fiberPer100g: 0.2 },
+  { id: "oat_milk", name: "Oat Milk", category: "fats", defaultGram: 250, caloriesPer100g: 48, proteinPer100g: 1.0, carbsPer100g: 7.0, fatPer100g: 1.5, fiberPer100g: 0.8 },
+  { id: "coconut_milk", name: "Coconut Milk", category: "fats", defaultGram: 200, caloriesPer100g: 230, proteinPer100g: 2.3, carbsPer100g: 5.5, fatPer100g: 24.0, fiberPer100g: 2.2 },
+  { id: "peanut_butter", name: "Peanut Butter", category: "fats", defaultGram: 32, caloriesPer100g: 588, proteinPer100g: 25.0, carbsPer100g: 20.0, fatPer100g: 50.0, fiberPer100g: 6.0 },
+  { id: "almond_butter", name: "Almond Butter", category: "fats", defaultGram: 32, caloriesPer100g: 614, proteinPer100g: 21.0, carbsPer100g: 19.0, fatPer100g: 56.0, fiberPer100g: 10.0 },
+  { id: "chia_seeds", name: "Chia Seeds", category: "fats", defaultGram: 15, caloriesPer100g: 486, proteinPer100g: 16.5, carbsPer100g: 42.1, fatPer100g: 30.7, fiberPer100g: 34.4 },
+  { id: "flax_seeds", name: "Ground Flaxseed", category: "fats", defaultGram: 15, caloriesPer100g: 534, proteinPer100g: 18.3, carbsPer100g: 28.9, fatPer100g: 42.2, fiberPer100g: 27.3 },
 ];
 
 export default function DashboardPage() {
@@ -86,7 +90,7 @@ export default function DashboardPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedIngredients, setSelectedIngredients] = useState<{ ingredient: Ingredient; weightGrams: number }[]>([]);
 
-  // STEP 1: Blending Controls & Voice Recognition State
+  // Blending Controls & Voice State
   const [isBlending, setIsBlending] = useState(false);
   const [blendSecondsLeft, setBlendSecondsLeft] = useState(60);
   const [selectedPreset, setSelectedPreset] = useState("Smoothie");
@@ -101,7 +105,6 @@ export default function DashboardPage() {
     return () => clearInterval(interval);
   }, []);
 
-  // Timer logic for active blend cycle
   useEffect(() => {
     let timer: any;
     if (isBlending && blendSecondsLeft > 0) {
@@ -115,7 +118,6 @@ export default function DashboardPage() {
     return () => clearInterval(timer);
   }, [isBlending, blendSecondsLeft]);
 
-  // Voice Command Simulator Toggle
   const toggleVoiceListener = () => {
     if (!voiceActive) {
       setVoiceActive(true);
@@ -155,11 +157,30 @@ export default function DashboardPage() {
     setSelectedIngredients((prev) => prev.filter((i) => i.ingredient.id !== id));
   };
 
+  // Live Load Cell & Step 2 Macro Totals
   const totalWeight = selectedIngredients.reduce((sum, item) => sum + item.weightGrams, 0);
   const totalCalories = selectedIngredients.reduce(
     (sum, item) => sum + Math.round((item.weightGrams * item.ingredient.caloriesPer100g) / 100),
     0
   );
+  const totalProtein = selectedIngredients.reduce(
+    (sum, item) => sum + (item.weightGrams * item.ingredient.proteinPer100g) / 100,
+    0
+  );
+  const totalCarbs = selectedIngredients.reduce(
+    (sum, item) => sum + (item.weightGrams * item.ingredient.carbsPer100g) / 100,
+    0
+  );
+  const totalFat = selectedIngredients.reduce(
+    (sum, item) => sum + (item.weightGrams * item.ingredient.fatPer100g) / 100,
+    0
+  );
+  const totalFiber = selectedIngredients.reduce(
+    (sum, item) => sum + (item.weightGrams * item.ingredient.fiberPer100g) / 100,
+    0
+  );
+
+  const totalMacroGramSum = totalProtein + totalCarbs + totalFat || 1;
 
   const filteredIngredients = INGREDIENTS_DATABASE.filter((item) => {
     const matchesCategory = activeCategory === "all" || item.category === activeCategory;
@@ -294,11 +315,11 @@ export default function DashboardPage() {
               <div>
                 <h2 className="text-2xl font-black tracking-tight">SMART RECIPE & LOAD CELL MEASUREMENT</h2>
                 <p className="text-sm text-zinc-400">
-                  Select ingredients to measure quantity and control motor blending cycles.
+                  Select ingredients to measure quantity and calculate real-time macro telemetry inside the blender jar.
                 </p>
               </div>
 
-              {/* STEP 1: Interactive Blend Control & Voice Panel */}
+              {/* Interactive Blend Control & Voice Panel */}
               <div className="p-6 bg-zinc-900/90 border border-zinc-800 rounded-2xl space-y-6">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                   <div>
@@ -309,7 +330,6 @@ export default function DashboardPage() {
                     <p className="text-xs text-zinc-400">Select preset or trigger hardware voice command</p>
                   </div>
 
-                  {/* Voice Hardware Recognition Toggle */}
                   <div className="flex items-center space-x-3 bg-black/60 p-2.5 rounded-xl border border-zinc-800">
                     <button
                       onClick={toggleVoiceListener}
@@ -325,7 +345,6 @@ export default function DashboardPage() {
                   </div>
                 </div>
 
-                {/* Simulated Voice Command Quick Triggers (when mic active) */}
                 {voiceActive && (
                   <div className="p-3 bg-red-950/20 border border-red-900/40 rounded-xl flex items-center justify-between text-xs font-mono">
                     <span className="text-red-400">Hardware Voice Prompts:</span>
@@ -352,7 +371,6 @@ export default function DashboardPage() {
                   </div>
                 )}
 
-                {/* Mode Presets & Start Action */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
                   <div className="md:col-span-3 flex flex-wrap gap-2">
                     {["Smoothie", "Protein Shake", "Ice Crush", "Pulse"].map((mode) => (
@@ -390,7 +408,7 @@ export default function DashboardPage() {
                 </div>
               </div>
 
-              {/* Filters & Search Bar */}
+              {/* Category Filters & Search */}
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-zinc-800 pb-4">
                 <div className="flex flex-wrap gap-2">
                   {[
@@ -425,7 +443,7 @@ export default function DashboardPage() {
 
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Available Ingredients Grid */}
-                <div className="lg:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-3 max-h-[500px] overflow-y-auto pr-2">
+                <div className="lg:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-3 max-h-[550px] overflow-y-auto pr-2">
                   {filteredIngredients.map((item) => (
                     <div
                       key={item.id}
@@ -446,19 +464,58 @@ export default function DashboardPage() {
                   ))}
                 </div>
 
-                {/* Live Load Cell Scale Simulation */}
+                {/* STEP 2: Enhanced Load Cell Scale & Macro Breakdown */}
                 <div className="p-6 bg-zinc-900/80 border border-zinc-800 rounded-xl space-y-6 h-fit">
                   <div>
                     <h3 className="text-sm font-bold text-zinc-300">JAR LOAD CELL SCALE</h3>
-                    <p className="text-xs text-zinc-500">Live weight telemetry from blender base</p>
+                    <p className="text-xs text-zinc-500">Live weight & macro telemetry</p>
                   </div>
 
                   <div className="p-4 bg-black border border-zinc-800 rounded-lg text-center space-y-1">
                     <div className="text-xs font-mono text-zinc-500">TOTAL WEIGHT</div>
                     <div className="text-4xl font-black text-emerald-400">{totalWeight} <span className="text-sm text-zinc-400">g</span></div>
-                    <div className="text-xs font-mono text-zinc-400 pt-1">Est. Calories: <span className="text-white font-bold">{totalCalories} kcal</span></div>
+                    <div className="text-xs font-mono text-zinc-400 pt-1">Est. Energy: <span className="text-white font-bold">{totalCalories} kcal</span></div>
                   </div>
 
+                  {/* STEP 2: Macro Breakdown Cards */}
+                  <div className="space-y-3">
+                    <div className="text-xs font-bold text-zinc-400">NUTRITION & MACROS:</div>
+                    <div className="grid grid-cols-4 gap-1.5 text-center">
+                      <div className="p-2 bg-blue-950/40 border border-blue-900/50 rounded-lg">
+                        <div className="text-[10px] text-blue-400 font-bold uppercase">Protein</div>
+                        <div className="text-xs font-black text-white">{totalProtein.toFixed(1)}g</div>
+                      </div>
+                      <div className="p-2 bg-amber-950/40 border border-amber-900/50 rounded-lg">
+                        <div className="text-[10px] text-amber-400 font-bold uppercase">Carbs</div>
+                        <div className="text-xs font-black text-white">{totalCarbs.toFixed(1)}g</div>
+                      </div>
+                      <div className="p-2 bg-emerald-950/40 border border-emerald-900/50 rounded-lg">
+                        <div className="text-[10px] text-emerald-400 font-bold uppercase">Fats</div>
+                        <div className="text-xs font-black text-white">{totalFat.toFixed(1)}g</div>
+                      </div>
+                      <div className="p-2 bg-purple-950/40 border border-purple-900/50 rounded-lg">
+                        <div className="text-[10px] text-purple-400 font-bold uppercase">Fiber</div>
+                        <div className="text-xs font-black text-white">{totalFiber.toFixed(1)}g</div>
+                      </div>
+                    </div>
+
+                    {/* Macro Distribution Visual Progress Bar */}
+                    {selectedIngredients.length > 0 && (
+                      <div className="space-y-1 pt-1">
+                        <div className="text-[10px] text-zinc-500 flex justify-between font-mono">
+                          <span>Macro Balance</span>
+                          <span>{Math.round((totalProtein / totalMacroGramSum) * 100)}% P / {Math.round((totalCarbs / totalMacroGramSum) * 100)}% C / {Math.round((totalFat / totalMacroGramSum) * 100)}% F</span>
+                        </div>
+                        <div className="h-2 w-full bg-zinc-800 rounded-full overflow-hidden flex">
+                          <div className="bg-blue-500 h-full transition-all" style={{ width: `${(totalProtein / totalMacroGramSum) * 100}%` }}></div>
+                          <div className="bg-amber-500 h-full transition-all" style={{ width: `${(totalCarbs / totalMacroGramSum) * 100}%` }}></div>
+                          <div className="bg-emerald-500 h-full transition-all" style={{ width: `${(totalFat / totalMacroGramSum) * 100}%` }}></div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Jar Contents List */}
                   <div className="space-y-3">
                     <div className="text-xs font-bold text-zinc-400">JAR CONTENTS:</div>
                     {selectedIngredients.length === 0 ? (
