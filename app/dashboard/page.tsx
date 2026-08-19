@@ -153,11 +153,19 @@ export default function DashboardPage() {
     });
   };
 
+  // STEP 3: Gram Modification Helpers
+  const updateWeight = (id: string, newGram: number) => {
+    const validGram = Math.max(1, newGram);
+    setSelectedIngredients((prev) =>
+      prev.map((i) => (i.ingredient.id === id ? { ...i, weightGrams: validGram } : i))
+    );
+  };
+
   const removeIngredient = (id: string) => {
     setSelectedIngredients((prev) => prev.filter((i) => i.ingredient.id !== id));
   };
 
-  // Live Load Cell & Step 2 Macro Totals
+  // Live Load Cell & Macro Totals
   const totalWeight = selectedIngredients.reduce((sum, item) => sum + item.weightGrams, 0);
   const totalCalories = selectedIngredients.reduce(
     (sum, item) => sum + Math.round((item.weightGrams * item.ingredient.caloriesPer100g) / 100),
@@ -315,7 +323,7 @@ export default function DashboardPage() {
               <div>
                 <h2 className="text-2xl font-black tracking-tight">SMART RECIPE & LOAD CELL MEASUREMENT</h2>
                 <p className="text-sm text-zinc-400">
-                  Select ingredients to measure quantity and calculate real-time macro telemetry inside the blender jar.
+                  Select ingredients and adjust gram weights to calculate real-time macro telemetry inside the blender jar.
                 </p>
               </div>
 
@@ -464,7 +472,7 @@ export default function DashboardPage() {
                   ))}
                 </div>
 
-                {/* STEP 2: Enhanced Load Cell Scale & Macro Breakdown */}
+                {/* Load Cell Scale & STEP 3 Custom Weight Controls */}
                 <div className="p-6 bg-zinc-900/80 border border-zinc-800 rounded-xl space-y-6 h-fit">
                   <div>
                     <h3 className="text-sm font-bold text-zinc-300">JAR LOAD CELL SCALE</h3>
@@ -477,7 +485,7 @@ export default function DashboardPage() {
                     <div className="text-xs font-mono text-zinc-400 pt-1">Est. Energy: <span className="text-white font-bold">{totalCalories} kcal</span></div>
                   </div>
 
-                  {/* STEP 2: Macro Breakdown Cards */}
+                  {/* Macro Breakdown Cards */}
                   <div className="space-y-3">
                     <div className="text-xs font-bold text-zinc-400">NUTRITION & MACROS:</div>
                     <div className="grid grid-cols-4 gap-1.5 text-center">
@@ -515,24 +523,66 @@ export default function DashboardPage() {
                     )}
                   </div>
 
-                  {/* Jar Contents List */}
+                  {/* STEP 3: Jar Contents with Gram Controls */}
                   <div className="space-y-3">
-                    <div className="text-xs font-bold text-zinc-400">JAR CONTENTS:</div>
+                    <div className="text-xs font-bold text-zinc-400">JAR CONTENTS & WEIGHT CONTROL:</div>
                     {selectedIngredients.length === 0 ? (
                       <div className="text-xs text-zinc-600 italic py-4 text-center">Jar is empty. Add ingredients to begin.</div>
                     ) : (
                       selectedIngredients.map(({ ingredient, weightGrams }) => (
-                        <div key={ingredient.id} className="flex justify-between items-center text-xs p-2 bg-zinc-800/40 rounded border border-zinc-800">
-                          <div>
+                        <div key={ingredient.id} className="p-2.5 bg-zinc-800/40 rounded border border-zinc-800 space-y-2">
+                          <div className="flex justify-between items-center text-xs">
                             <span className="font-semibold text-zinc-200">{ingredient.name}</span>
-                            <span className="text-zinc-500 ml-2">({weightGrams}g)</span>
+                            <button
+                              onClick={() => removeIngredient(ingredient.id)}
+                              className="text-zinc-500 hover:text-red-400 text-xs font-bold"
+                            >
+                              ✕ Remove
+                            </button>
                           </div>
-                          <button
-                            onClick={() => removeIngredient(ingredient.id)}
-                            className="text-red-500 hover:text-red-400 text-xs font-bold ml-2"
-                          >
-                            ✕
-                          </button>
+
+                          {/* STEP 3 Controls: Direct Gram Input + Increment / Decrement Buttons */}
+                          <div className="flex items-center justify-between gap-2 pt-1">
+                            <div className="flex items-center space-x-1">
+                              <button
+                                onClick={() => updateWeight(ingredient.id, weightGrams - 10)}
+                                className="px-2 py-0.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-mono rounded"
+                              >
+                                -10g
+                              </button>
+                              <button
+                                onClick={() => updateWeight(ingredient.id, weightGrams - 50)}
+                                className="px-2 py-0.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-mono rounded"
+                              >
+                                -50g
+                              </button>
+                            </div>
+
+                            <div className="flex items-center space-x-1">
+                              <input
+                                type="number"
+                                value={weightGrams}
+                                onChange={(e) => updateWeight(ingredient.id, parseInt(e.target.value) || 0)}
+                                className="w-16 bg-black border border-zinc-700 text-center text-xs font-mono text-emerald-400 py-1 rounded focus:outline-none focus:border-red-600"
+                              />
+                              <span className="text-xs text-zinc-500 font-mono">g</span>
+                            </div>
+
+                            <div className="flex items-center space-x-1">
+                              <button
+                                onClick={() => updateWeight(ingredient.id, weightGrams + 10)}
+                                className="px-2 py-0.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-mono rounded"
+                              >
+                                +10g
+                              </button>
+                              <button
+                                onClick={() => updateWeight(ingredient.id, weightGrams + 50)}
+                                className="px-2 py-0.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-mono rounded"
+                              >
+                                +50g
+                              </button>
+                            </div>
+                          </div>
                         </div>
                       ))
                     )}
