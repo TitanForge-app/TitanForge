@@ -15,6 +15,12 @@ interface Ingredient {
   fiberPer100g: number;
 }
 
+interface SavedRecipe {
+  id: string;
+  name: string;
+  items: { ingredient: Ingredient; weightGrams: number }[];
+}
+
 const INGREDIENTS_DATABASE: Ingredient[] = [
   // --- FRUITS ---
   { id: "banana", name: "Banana", category: "fruits", defaultGram: 120, caloriesPer100g: 89, proteinPer100g: 1.1, carbsPer100g: 22.8, fatPer100g: 0.3, fiberPer100g: 2.6 },
@@ -90,6 +96,10 @@ export default function DashboardPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedIngredients, setSelectedIngredients] = useState<{ ingredient: Ingredient; weightGrams: number }[]>([]);
 
+  // STEP 4: Saved Recipes State
+  const [recipeName, setRecipeName] = useState("");
+  const [savedRecipes, setSavedRecipes] = useState<SavedRecipe[]>([]);
+
   // Blending Controls & Voice State
   const [isBlending, setIsBlending] = useState(false);
   const [blendSecondsLeft, setBlendSecondsLeft] = useState(60);
@@ -153,7 +163,6 @@ export default function DashboardPage() {
     });
   };
 
-  // STEP 3: Gram Modification Helpers
   const updateWeight = (id: string, newGram: number) => {
     const validGram = Math.max(1, newGram);
     setSelectedIngredients((prev) =>
@@ -163,6 +172,53 @@ export default function DashboardPage() {
 
   const removeIngredient = (id: string) => {
     setSelectedIngredients((prev) => prev.filter((i) => i.ingredient.id !== id));
+  };
+
+  // STEP 4: Recipe Handlers
+  const loadPreset = (presetType: "anabolic" | "green" | "keto") => {
+    const getItem = (id: string) => INGREDIENTS_DATABASE.find((i) => i.id === id)!;
+    if (presetType === "anabolic") {
+      setSelectedIngredients([
+        { ingredient: getItem("whey_vanilla"), weightGrams: 40 },
+        { ingredient: getItem("banana"), weightGrams: 120 },
+        { ingredient: getItem("oat_milk"), weightGrams: 250 },
+        { ingredient: getItem("peanut_butter"), weightGrams: 30 },
+      ]);
+    } else if (presetType === "green") {
+      setSelectedIngredients([
+        { ingredient: getItem("spinach"), weightGrams: 50 },
+        { ingredient: getItem("kale"), weightGrams: 30 },
+        { ingredient: getItem("apple_green"), weightGrams: 100 },
+        { ingredient: getItem("cucumber"), weightGrams: 80 },
+        { ingredient: getItem("ginger"), weightGrams: 10 },
+      ]);
+    } else if (presetType === "keto") {
+      setSelectedIngredients([
+        { ingredient: getItem("avocado"), weightGrams: 100 },
+        { ingredient: getItem("almond_milk"), weightGrams: 250 },
+        { ingredient: getItem("chia_seeds"), weightGrams: 20 },
+        { ingredient: getItem("collagen"), weightGrams: 20 },
+      ]);
+    }
+  };
+
+  const handleSaveRecipe = () => {
+    if (!recipeName.trim() || selectedIngredients.length === 0) return;
+    const newRecipe: SavedRecipe = {
+      id: Date.now().toString(),
+      name: recipeName.trim(),
+      items: [...selectedIngredients],
+    };
+    setSavedRecipes((prev) => [...prev, newRecipe]);
+    setRecipeName("");
+  };
+
+  const loadSavedRecipe = (recipe: SavedRecipe) => {
+    setSelectedIngredients([...recipe.items]);
+  };
+
+  const deleteSavedRecipe = (id: string) => {
+    setSavedRecipes((prev) => prev.filter((r) => r.id !== id));
   };
 
   // Live Load Cell & Macro Totals
@@ -323,8 +379,38 @@ export default function DashboardPage() {
               <div>
                 <h2 className="text-2xl font-black tracking-tight">SMART RECIPE & LOAD CELL MEASUREMENT</h2>
                 <p className="text-sm text-zinc-400">
-                  Select ingredients and adjust gram weights to calculate real-time macro telemetry inside the blender jar.
+                  Select ingredients, load athlete presets, or save custom blends to calculate real-time macro telemetry.
                 </p>
+              </div>
+
+              {/* STEP 4: Pre-built Athlete Preset Quick Loaders */}
+              <div className="p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl space-y-3">
+                <div className="text-xs font-bold text-zinc-400 tracking-wider uppercase">Quick Load Athlete Presets:</div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  <button
+                    onClick={() => loadPreset("anabolic")}
+                    className="p-3 bg-zinc-800/60 hover:bg-zinc-800 border border-zinc-700/60 rounded-lg text-left transition space-y-1"
+                  >
+                    <div className="text-xs font-bold text-white">💪 Anabolic Power Surge</div>
+                    <div className="text-[10px] text-zinc-400">Whey, Banana, Oat Milk, Peanut Butter</div>
+                  </button>
+
+                  <button
+                    onClick={() => loadPreset("green")}
+                    className="p-3 bg-zinc-800/60 hover:bg-zinc-800 border border-zinc-700/60 rounded-lg text-left transition space-y-1"
+                  >
+                    <div className="text-xs font-bold text-emerald-400">🥬 Green Detox Cleanse</div>
+                    <div className="text-[10px] text-zinc-400">Spinach, Kale, Green Apple, Cucumber, Ginger</div>
+                  </button>
+
+                  <button
+                    onClick={() => loadPreset("keto")}
+                    className="p-3 bg-zinc-800/60 hover:bg-zinc-800 border border-zinc-700/60 rounded-lg text-left transition space-y-1"
+                  >
+                    <div className="text-xs font-bold text-amber-400">🥑 Keto Energy Blast</div>
+                    <div className="text-[10px] text-zinc-400">Avocado, Almond Milk, Chia, Collagen</div>
+                  </button>
+                </div>
               </div>
 
               {/* Interactive Blend Control & Voice Panel */}
@@ -472,7 +558,7 @@ export default function DashboardPage() {
                   ))}
                 </div>
 
-                {/* Load Cell Scale & STEP 3 Custom Weight Controls */}
+                {/* Load Cell Scale & Step 4 Saved Blends */}
                 <div className="p-6 bg-zinc-900/80 border border-zinc-800 rounded-xl space-y-6 h-fit">
                   <div>
                     <h3 className="text-sm font-bold text-zinc-300">JAR LOAD CELL SCALE</h3>
@@ -523,7 +609,7 @@ export default function DashboardPage() {
                     )}
                   </div>
 
-                  {/* STEP 3: Jar Contents with Gram Controls */}
+                  {/* Jar Contents with Gram Controls */}
                   <div className="space-y-3">
                     <div className="text-xs font-bold text-zinc-400">JAR CONTENTS & WEIGHT CONTROL:</div>
                     {selectedIngredients.length === 0 ? (
@@ -541,7 +627,6 @@ export default function DashboardPage() {
                             </button>
                           </div>
 
-                          {/* STEP 3 Controls: Direct Gram Input + Increment / Decrement Buttons */}
                           <div className="flex items-center justify-between gap-2 pt-1">
                             <div className="flex items-center space-x-1">
                               <button
@@ -587,6 +672,59 @@ export default function DashboardPage() {
                       ))
                     )}
                   </div>
+
+                  {/* STEP 4: Save Current Mix Input Section */}
+                  {selectedIngredients.length > 0 && (
+                    <div className="p-3 bg-black/60 border border-zinc-800 rounded-lg space-y-2">
+                      <div className="text-[11px] font-bold text-zinc-400 uppercase">Save Recipe to Vault</div>
+                      <div className="flex space-x-2">
+                        <input
+                          type="text"
+                          placeholder="Name (e.g. My Post-Workout Shake)"
+                          value={recipeName}
+                          onChange={(e) => setRecipeName(e.target.value)}
+                          className="bg-zinc-900 border border-zinc-700 text-xs px-3 py-1.5 rounded text-white flex-1 focus:outline-none focus:border-red-600"
+                        />
+                        <button
+                          onClick={handleSaveRecipe}
+                          className="px-3 py-1.5 text-xs font-semibold bg-red-600 hover:bg-red-500 text-white rounded transition"
+                        >
+                          Save
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* STEP 4: Saved Custom Recipes List */}
+                  {savedRecipes.length > 0 && (
+                    <div className="space-y-2 pt-2 border-t border-zinc-800">
+                      <div className="text-xs font-bold text-zinc-400">SAVED CUSTOM BLENDS ({savedRecipes.length}):</div>
+                      <div className="space-y-2">
+                        {savedRecipes.map((r) => (
+                          <div key={r.id} className="p-2.5 bg-zinc-800/60 rounded border border-zinc-700/60 flex justify-between items-center text-xs">
+                            <div>
+                              <div className="font-bold text-white">{r.name}</div>
+                              <div className="text-[10px] text-zinc-400">{r.items.length} items included</div>
+                            </div>
+                            <div className="space-x-1">
+                              <button
+                                onClick={() => loadSavedRecipe(r)}
+                                className="px-2 py-1 bg-emerald-600/30 text-emerald-400 hover:bg-emerald-600 hover:text-white rounded text-[10px] font-bold transition"
+                              >
+                                Load
+                              </button>
+                              <button
+                                onClick={() => deleteSavedRecipe(r.id)}
+                                className="px-2 py-1 bg-zinc-700/40 text-zinc-400 hover:text-red-400 rounded text-[10px] transition"
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
                   {selectedIngredients.length > 0 && (
                     <button
