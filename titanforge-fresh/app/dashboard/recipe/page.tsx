@@ -91,14 +91,14 @@ export default function SmartRecipeScale() {
         </div>
         <Link 
           href="/dashboard" 
-          className="text-xs font-semibold px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 rounded-lg border border-zinc-800 transition-colors text-white"
+          className="text-xs font-semibold px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 rounded-lg border border-zinc-800 transition-colors text-white inline-block"
         >
           ← Back to Dashboard
         </Link>
       </nav>
 
       {/* Main Grid Layout (Content + Live Scale Sidebar) */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 max-w-7xl mx-auto w-full">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 max-w-7xl mx-auto w-full items-start">
         
         {/* Left 3 Columns: Controls & Ingredients Picker */}
         <div className="lg:col-span-3 flex flex-col gap-6">
@@ -149,7 +149,7 @@ export default function SmartRecipeScale() {
             </div>
             <input 
               type="text"
-              placeholder="Search ingredient (e.g. Strawberries)..."
+              placeholder="Search ingredient..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="bg-zinc-900 border border-zinc-800 px-4 py-2 rounded-xl text-xs text-white w-full md:w-64 focus:outline-none focus:border-red-600"
@@ -178,7 +178,7 @@ export default function SmartRecipeScale() {
         </div>
 
         {/* Right 1 Column: Live Jar Load Cell Scale Sidebar */}
-        <div className="bg-zinc-950 p-5 rounded-2xl border border-zinc-800 flex flex-col justify-between shadow-2xl">
+        <div className="bg-zinc-950 p-5 rounded-2xl border border-zinc-800 flex flex-col justify-between shadow-2xl lg:sticky lg:top-6">
           <div>
             <div className="border-b border-zinc-900 pb-4 mb-4">
               <h3 className="text-xs font-bold text-zinc-400 uppercase tracking-wider">JAR LOAD CELL SCALE</h3>
