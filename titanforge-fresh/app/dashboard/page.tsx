@@ -14,7 +14,7 @@ export default function Dashboard() {
         </div>
         <Link 
           href="/" 
-          className="text-xs font-semibold px-4 py-2 bg-zinc-900 hover:bg-zinc-800 rounded-lg border border-zinc-800 transition-colors"
+          className="text-xs font-semibold px-4 py-2 bg-zinc-900 hover:bg-zinc-800 rounded-lg border border-zinc-800 transition-colors text-white inline-block"
         >
           ← Back to Home
         </Link>
