@@ -13,10 +13,11 @@ export default function Home() {
             <div className="w-3 h-3 bg-red-600 animate-pulse border border-red-900"></div>
             TITAN<span className="text-red-600">FORGE</span>_CRYO_v1
         </div>
-        <div className="flex items-center gap-3 text-xs border-l border-[#222] pl-3">
-          <span className="text-green-500">SYSTEM_ONLINE</span>
-          <span className="text-gray-600">|</span>
-          <span className="text-gray-400">SECURED_ACCESS</span>
+        <div className="flex items-center gap-6 text-xs font-sans">
+          <Link href="/dashboard" className="text-gray-400 hover:text-white transition-colors">Dashboard</Link>
+          <Link href="/dashboard/biometrics" className="text-gray-400 hover:text-white transition-colors">Biometrics</Link>
+          <Link href="/dashboard/voice" className="text-gray-400 hover:text-white transition-colors">Voice Control</Link>
+          <span className="text-green-500 border-l border-[#222] pl-4">SYSTEM_ONLINE</span>
         </div>
       </header>
 
@@ -42,15 +43,15 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4">
             <Link 
               href="/dashboard" 
-              className="group relative px-6 py-3 bg-red-600 text-black font-bold text-sm tracking-wider uppercase hover:bg-red-500 transition-all duration-150 active:translate-y-0.5 text-center inline-block"
+              className="px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-bold text-sm tracking-wider uppercase transition-all shadow-xl shadow-red-600/30 text-center inline-block"
             >
-              <span className="relative z-10">Initialize Session →</span>
+              Open Athlete Dashboard →
             </Link>
             <Link 
               href="/dashboard/biometrics" 
-              className="px-6 py-3 bg-[#111] text-gray-300 font-medium text-sm tracking-wider uppercase border border-[#333] hover:border-gray-500 hover:text-white transition-colors text-center inline-block"
+              className="px-8 py-4 bg-[#111] hover:bg-zinc-800 text-gray-300 hover:text-white font-bold text-sm tracking-wider uppercase border border-[#333] transition-all text-center inline-block"
             >
-              Manage Profiles
+              Manage Fingerprint Profiles
             </Link>
           </div>
         </div>
