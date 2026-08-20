@@ -24,15 +24,15 @@ export default function Dashboard() {
       <div className="max-w-7xl mx-auto w-full py-10 grid grid-cols-1 md:grid-cols-3 gap-6">
         
         {/* Card 1: Biometric Status */}
-        <div className="bg-zinc-950 p-6 rounded-2xl border border-zinc-800/80 shadow-lg">
+        <Link href="/dashboard/biometrics" className="bg-zinc-950 p-6 rounded-2xl border border-zinc-800/80 shadow-lg hover:border-red-600/50 transition-all block">
           <span className="text-xs font-bold text-red-500 uppercase tracking-widest">Hardware Security</span>
-          <h3 className="text-xl font-bold mt-2 mb-4">Fingerprint Profiles</h3>
+          <h3 className="text-xl font-bold mt-2 mb-4">Fingerprint Profiles →</h3>
           <div className="flex items-center justify-between p-4 bg-zinc-900 rounded-xl border border-zinc-800 mb-4">
             <span className="text-sm text-zinc-300">Active Slots Used</span>
             <span className="text-red-500 font-bold">3 / 5</span>
           </div>
-          <p className="text-xs text-zinc-500">Maximum capacity limited to 5 authenticated athletic profiles.</p>
-        </div>
+          <p className="text-xs text-zinc-500">Manage your 5 authenticated athletic fingerprint profiles.</p>
+        </Link>
 
         {/* Card 2: Recovery Sync */}
         <div className="bg-zinc-950 p-6 rounded-2xl border border-zinc-800/80 shadow-lg">
@@ -46,17 +46,17 @@ export default function Dashboard() {
         </div>
 
         {/* Card 3: Voice Activation Status */}
-        <div className="bg-zinc-950 p-6 rounded-2xl border border-zinc-800/80 shadow-lg">
+        <Link href="/dashboard/voice" className="bg-zinc-950 p-6 rounded-2xl border border-zinc-800/80 shadow-lg hover:border-red-600/50 transition-all block">
           <span className="text-xs font-bold text-red-500 uppercase tracking-widest">Command Interface</span>
-          <h3 className="text-xl font-bold mt-2 mb-4">Voice Recognition</h3>
+          <h3 className="text-xl font-bold mt-2 mb-4">Voice Recognition →</h3>
           <div className="flex items-center justify-between p-4 bg-zinc-900 rounded-xl border border-zinc-800 mb-4">
             <span className="text-sm text-zinc-300">Status</span>
             <span className="text-green-500 font-bold flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> Connected
             </span>
           </div>
-          <p className="text-xs text-zinc-500">Ready for hands-free cycle initiation post-training.</p>
-        </div>
+          <p className="text-xs text-zinc-500">View Bluetooth telemetry and hands-free blending presets.</p>
+        </Link>
 
       </div>
     </main>
