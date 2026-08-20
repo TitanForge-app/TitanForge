@@ -1,147 +1,17 @@
-const INGREDIENT_DATABASE: Ingredient[] = [
-  // --- FRUITS: Berries & Small Fruits ---
-  { id: "strawberries", name: "Strawberries", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 32, proteinPer100g: 0.7, carbsPer100g: 7.7, fatPer100g: 0.3, fiberPer100g: 2.0 },
-  { id: "blueberries", name: "Blueberries", category: "fruits", portionText: "~80g portion", defaultGram: 80, caloriesPer100g: 57, proteinPer100g: 0.7, carbsPer100g: 14.5, fatPer100g: 0.3, fiberPer100g: 2.4 },
-  { id: "raspberries", name: "Raspberries", category: "fruits", portionText: "~80g portion", defaultGram: 80, caloriesPer100g: 52, proteinPer100g: 1.2, carbsPer100g: 11.9, fatPer100g: 0.7, fiberPer100g: 6.5 },
-  { id: "blackberries", name: "Blackberries", category: "fruits", portionText: "~80g portion", defaultGram: 80, caloriesPer100g: 43, proteinPer100g: 1.4, carbsPer100g: 9.6, fatPer100g: 0.5, fiberPer100g: 5.3 },
-  { id: "cranberries", name: "Cranberries", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 46, proteinPer100g: 0.5, carbsPer100g: 12.2, fatPer100g: 0.1, fiberPer100g: 4.6 },
-  { id: "gooseberries", name: "Gooseberries", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 44, proteinPer100g: 0.9, carbsPer100g: 10.2, fatPer100g: 0.6, fiberPer100g: 4.3 },
-  { id: "acai", name: "Acai Puree", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 70, proteinPer100g: 2.0, carbsPer100g: 4.0, fatPer100g: 5.0, fiberPer100g: 3.0 },
-  { id: "elderberries", name: "Elderberries", category: "fruits", portionText: "~50g portion", defaultGram: 50, caloriesPer100g: 73, proteinPer100g: 0.7, carbsPer100g: 18.4, fatPer100g: 0.5, fiberPer100g: 7.0 },
-  { id: "mulberries", name: "Mulberries", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 43, proteinPer100g: 1.4, carbsPer100g: 9.8, fatPer100g: 0.4, fiberPer100g: 1.7 },
-  { id: "currants", name: "Red Currants", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 56, proteinPer100g: 1.4, carbsPer100g: 13.8, fatPer100g: 0.2, fiberPer100g: 4.3 },
-  { id: "goji_berries", name: "Goji Berries (Dried)", category: "fruits", portionText: "~28g portion", defaultGram: 28, caloriesPer100g: 349, proteinPer100g: 14.3, carbsPer100g: 77.0, fatPer100g: 0.4, fiberPer100g: 13.0 },
-  { id: "grapes", name: "Grapes", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 69, proteinPer100g: 0.7, carbsPer100g: 18.1, fatPer100g: 0.2, fiberPer100g: 0.9 },
+import React from 'react';
+import Sidebar from '../components/sidebar';
 
-  // --- FRUITS: Pomes & Stone Fruits ---
-  { id: "red_apple", name: "Red Apple", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 52, proteinPer100g: 0.3, carbsPer100g: 13.8, fatPer100g: 0.2, fiberPer100g: 2.4 },
-  { id: "green_apple", name: "Green Apple", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 52, proteinPer100g: 0.3, carbsPer100g: 13.8, fatPer100g: 0.2, fiberPer100g: 2.4 },
-  { id: "fuji_apple", name: "Fuji Apple", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 63, proteinPer100g: 0.2, carbsPer100g: 15.2, fatPer100g: 0.2, fiberPer100g: 2.1 },
-  { id: "honeycrisp_apple", name: "Honeycrisp Apple", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 60, proteinPer100g: 0.2, carbsPer100g: 14.5, fatPer100g: 0.2, fiberPer100g: 2.4 },
-  { id: "pears", name: "Pears", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 57, proteinPer100g: 0.4, carbsPer100g: 15.2, fatPer100g: 0.1, fiberPer100g: 3.1 },
-  { id: "peach", name: "Peach", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 39, proteinPer100g: 0.9, carbsPer100g: 9.5, fatPer100g: 0.3, fiberPer100g: 1.5 },
-  { id: "nectarines", name: "Nectarines", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 44, proteinPer100g: 1.1, carbsPer100g: 10.6, fatPer100g: 0.3, fiberPer100g: 1.7 },
-  { id: "plum", name: "Plum", category: "fruits", portionText: "~80g portion", defaultGram: 80, caloriesPer100g: 46, proteinPer100g: 0.7, carbsPer100g: 11.4, fatPer100g: 0.3, fiberPer100g: 1.4 },
-  { id: "apricots", name: "Apricots", category: "fruits", portionText: "~80g portion", defaultGram: 80, caloriesPer100g: 48, proteinPer100g: 1.4, carbsPer100g: 11.1, fatPer100g: 0.4, fiberPer100g: 2.0 },
-  { id: "cherries", name: "Cherries", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 63, proteinPer100g: 1.1, carbsPer100g: 16.0, fatPer100g: 0.2, fiberPer100g: 2.1 },
-
-  // --- FRUITS: Tropical & Exotic ---
-  { id: "banana", name: "Banana", category: "fruits", portionText: "~120g portion", defaultGram: 120, caloriesPer100g: 89, proteinPer100g: 1.1, carbsPer100g: 22.8, fatPer100g: 0.3, fiberPer100g: 2.6 },
-  { id: "pineapple", name: "Pineapple", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 50, proteinPer100g: 0.5, carbsPer100g: 13.1, fatPer100g: 0.1, fiberPer100g: 1.4 },
-  { id: "mango", name: "Mango", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 60, proteinPer100g: 0.8, carbsPer100g: 15.0, fatPer100g: 0.4, fiberPer100g: 1.6 },
-  { id: "papaya", name: "Papaya", category: "fruits", portionText: "~140g portion", defaultGram: 140, caloriesPer100g: 43, proteinPer100g: 0.5, carbsPer100g: 11.0, fatPer100g: 0.3, fiberPer100g: 1.7 },
-  { id: "passionfruit", name: "Passionfruit", category: "fruits", portionText: "~50g portion", defaultGram: 50, caloriesPer100g: 97, proteinPer100g: 2.2, carbsPer100g: 23.4, fatPer100g: 0.7, fiberPer100g: 10.4 },
-  { id: "dragonfruit", name: "Dragonfruit (Pitaya)", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 60, proteinPer100g: 1.2, carbsPer100g: 13.0, fatPer100g: 0.5, fiberPer100g: 2.9 },
-  { id: "guava", name: "Guava", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 68, proteinPer100g: 2.6, carbsPer100g: 14.3, fatPer100g: 1.0, fiberPer100g: 5.4 },
-  { id: "lychee", name: "Lychee", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 66, proteinPer100g: 0.8, carbsPer100g: 16.5, fatPer100g: 0.4, fiberPer100g: 1.3 },
-  { id: "rambutan", name: "Rambutan", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 68, proteinPer100g: 0.9, carbsPer100g: 16.0, fatPer100g: 0.2, fiberPer100g: 0.9 },
-  { id: "mangosteen", name: "Mangosteen", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 73, proteinPer100g: 0.4, carbsPer100g: 18.0, fatPer100g: 0.6, fiberPer100g: 1.8 },
-  { id: "durian", name: "Durian", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 147, proteinPer100g: 1.5, carbsPer100g: 27.1, fatPer100g: 5.3, fiberPer100g: 3.8 },
-  { id: "jackfruit", name: "Jackfruit", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 95, proteinPer100g: 1.7, carbsPer100g: 23.2, fatPer100g: 0.6, fiberPer100g: 1.5 },
-  { id: "starfruit", name: "Starfruit", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 31, proteinPer100g: 1.0, carbsPer100g: 6.7, fatPer100g: 0.3, fiberPer100g: 2.8 },
-  { id: "fig", name: "Fresh Fig", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 74, proteinPer100g: 0.8, carbsPer100g: 19.2, fatPer100g: 0.3, fiberPer100g: 2.9 },
-  { id: "date", name: "Medjool Date", category: "fruits", portionText: "~24g portion", defaultGram: 24, caloriesPer100g: 277, proteinPer100g: 1.8, carbsPer100g: 75.0, fatPer100g: 0.2, fiberPer100g: 6.7 },
-  { id: "persimmon", name: "Persimmon", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 70, proteinPer100g: 0.6, carbsPer100g: 18.6, fatPer100g: 0.2, fiberPer100g: 3.6 },
-  { id: "pomegranate", name: "Pomegranate Seeds", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 83, proteinPer100g: 1.7, carbsPer100g: 18.7, fatPer100g: 1.2, fiberPer100g: 4.0 },
-  { id: "kiwi", name: "Kiwi", category: "fruits", portionText: "~70g portion", defaultGram: 70, caloriesPer100g: 61, proteinPer100g: 1.1, carbsPer100g: 14.7, fatPer100g: 0.5, fiberPer100g: 3.0 },
-
-  // --- FRUITS: Citrus & Melons ---
-  { id: "orange", name: "Orange", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 47, proteinPer100g: 0.9, carbsPer100g: 11.8, fatPer100g: 0.1, fiberPer100g: 2.4 },
-  { id: "tangerine", name: "Tangerine", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 53, proteinPer100g: 0.8, carbsPer100g: 13.3, fatPer100g: 0.3, fiberPer100g: 1.8 },
-  { id: "clementine", name: "Clementine", category: "fruits", portionText: "~74g portion", defaultGram: 74, caloriesPer100g: 47, proteinPer100g: 0.9, carbsPer100g: 12.0, fatPer100g: 0.2, fiberPer100g: 1.7 },
-  { id: "grapefruit", name: "Grapefruit", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 42, proteinPer100g: 0.8, carbsPer100g: 10.7, fatPer100g: 0.1, fiberPer100g: 1.6 },
-  { id: "lemon", name: "Lemon Juice", category: "fruits", portionText: "~30g portion", defaultGram: 30, caloriesPer100g: 29, proteinPer100g: 1.1, carbsPer100g: 9.3, fatPer100g: 0.3, fiberPer100g: 2.8 },
-  { id: "lime", name: "Lime Juice", category: "fruits", portionText: "~30g portion", defaultGram: 30, caloriesPer100g: 30, proteinPer100g: 0.7, carbsPer100g: 10.5, fatPer100g: 0.2, fiberPer100g: 2.8 },
-  { id: "kumquat", name: "Kumquat", category: "fruits", portionText: "~50g portion", defaultGram: 50, caloriesPer100g: 71, proteinPer100g: 1.9, carbsPer100g: 15.9, fatPer100g: 0.9, fiberPer100g: 6.5 },
-  { id: "pomelo", name: "Pomelo", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 38, proteinPer100g: 0.8, carbsPer100g: 9.6, fatPer100g: 0.0, fiberPer100g: 1.0 },
-  { id: "watermelon", name: "Watermelon", category: "fruits", portionText: "~150g portion", defaultGram: 150, caloriesPer100g: 30, proteinPer100g: 0.6, carbsPer100g: 7.6, fatPer100g: 0.2, fiberPer100g: 0.4 },
-  { id: "cantaloupe", name: "Cantaloupe", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 34, proteinPer100g: 0.8, carbsPer100g: 8.2, fatPer100g: 0.2, fiberPer100g: 0.9 },
-  { id: "honeydew", name: "Honeydew Melon", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 36, proteinPer100g: 0.5, carbsPer100g: 9.1, fatPer100g: 0.1, fiberPer100g: 0.8 },
-  { id: "galia_melon", name: "Galia Melon", category: "fruits", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 30, proteinPer100g: 0.7, carbsPer100g: 7.0, fatPer100g: 0.1, fiberPer100g: 0.8 },
-
-  // --- VEGGIES: Leafy Greens & Cruciferous ---
-  { id: "spinach", name: "Spinach", category: "veggies", portionText: "~50g portion", defaultGram: 50, caloriesPer100g: 23, proteinPer100g: 2.9, carbsPer100g: 3.6, fatPer100g: 0.4, fiberPer100g: 2.2 },
-  { id: "kale", name: "Kale", category: "veggies", portionText: "~50g portion", defaultGram: 50, caloriesPer100g: 49, proteinPer100g: 4.3, carbsPer100g: 8.8, fatPer100g: 0.9, fiberPer100g: 3.6 },
-  { id: "swiss_chard", name: "Swiss Chard", category: "veggies", portionText: "~50g portion", defaultGram: 50, caloriesPer100g: 19, proteinPer100g: 1.8, carbsPer100g: 3.7, fatPer100g: 0.2, fiberPer100g: 1.6 },
-  { id: "arugula", name: "Arugula", category: "veggies", portionText: "~30g portion", defaultGram: 30, caloriesPer100g: 25, proteinPer100g: 2.6, carbsPer100g: 3.7, fatPer100g: 0.7, fiberPer100g: 1.6 },
-  { id: "romaine", name: "Romaine Lettuce", category: "veggies", portionText: "~50g portion", defaultGram: 50, caloriesPer100g: 17, proteinPer100g: 1.2, carbsPer100g: 3.3, fatPer100g: 0.3, fiberPer100g: 2.1 },
-  { id: "iceberg", name: "Iceberg Lettuce", category: "veggies", portionText: "~50g portion", defaultGram: 50, caloriesPer100g: 14, proteinPer100g: 0.9, carbsPer100g: 3.0, fatPer100g: 0.1, fiberPer100g: 1.2 },
-  { id: "collard_greens", name: "Collard Greens", category: "veggies", portionText: "~50g portion", defaultGram: 50, caloriesPer100g: 32, proteinPer100g: 3.0, carbsPer100g: 5.4, fatPer100g: 0.6, fiberPer100g: 4.0 },
-  { id: "bok_choy", name: "Bok Choy", category: "veggies", portionText: "~70g portion", defaultGram: 70, caloriesPer100g: 13, proteinPer100g: 1.5, carbsPer100g: 2.2, fatPer100g: 0.2, fiberPer100g: 1.0 },
-  { id: "watercress", name: "Watercress", category: "veggies", portionText: "~30g portion", defaultGram: 30, caloriesPer100g: 11, proteinPer100g: 2.3, carbsPer100g: 1.3, fatPer100g: 0.1, fiberPer100g: 0.5 },
-  { id: "green_cabbage", name: "Green Cabbage", category: "veggies", portionText: "~70g portion", defaultGram: 70, caloriesPer100g: 25, proteinPer100g: 1.3, carbsPer100g: 5.8, fatPer100g: 0.1, fiberPer100g: 2.5 },
-  { id: "red_cabbage", name: "Red Cabbage", category: "veggies", portionText: "~70g portion", defaultGram: 70, caloriesPer100g: 31, proteinPer100g: 1.4, carbsPer100g: 7.4, fatPer100g: 0.2, fiberPer100g: 2.1 },
-  { id: "savoy_cabbage", name: "Savoy Cabbage", category: "veggies", portionText: "~70g portion", defaultGram: 70, caloriesPer100g: 27, proteinPer100g: 2.0, carbsPer100g: 6.1, fatPer100g: 0.1, fiberPer100g: 3.1 },
-  { id: "broccoli", name: "Broccoli", category: "veggies", portionText: "~80g portion", defaultGram: 80, caloriesPer100g: 34, proteinPer100g: 2.8, carbsPer100g: 6.6, fatPer100g: 0.4, fiberPer100g: 2.6 },
-  { id: "cauliflower", name: "Cauliflower", category: "veggies", portionText: "~80g portion", defaultGram: 80, caloriesPer100g: 25, proteinPer100g: 1.9, carbsPer100g: 5.0, fatPer100g: 0.3, fiberPer100g: 2.0 },
-  { id: "brussels_sprouts", name: "Brussels Sprouts", category: "veggies", portionText: "~80g portion", defaultGram: 80, caloriesPer100g: 43, proteinPer100g: 3.4, carbsPer100g: 9.0, fatPer100g: 0.3, fiberPer100g: 3.8 },
-
-  // --- VEGGIES: Roots & Tubers ---
-  { id: "carrots", name: "Carrots", category: "veggies", portionText: "~70g portion", defaultGram: 70, caloriesPer100g: 41, proteinPer100g: 0.9, carbsPer100g: 9.6, fatPer100g: 0.2, fiberPer100g: 2.8 },
-  { id: "radishes", name: "Radishes", category: "veggies", portionText: "~50g portion", defaultGram: 50, caloriesPer100g: 16, proteinPer100g: 0.7, carbsPer100g: 3.4, fatPer100g: 0.1, fiberPer100g: 1.6 },
-  { id: "beets", name: "Beets", category: "veggies", portionText: "~80g portion", defaultGram: 80, caloriesPer100g: 43, proteinPer100g: 1.6, carbsPer100g: 9.6, fatPer100g: 0.2, fiberPer100g: 2.8 },
-  { id: "turnips", name: "Turnips", category: "veggies", portionText: "~80g portion", defaultGram: 80, caloriesPer100g: 28, proteinPer100g: 0.9, carbsPer100g: 6.4, fatPer100g: 0.1, fiberPer100g: 1.8 },
-  { id: "parsnips", name: "Parsnips", category: "veggies", portionText: "~80g portion", defaultGram: 80, caloriesPer100g: 75, proteinPer100g: 1.2, carbsPer100g: 18.0, fatPer100g: 0.3, fiberPer100g: 4.9 },
-  { id: "potatoes", name: "Potatoes", category: "veggies", portionText: "~150g portion", defaultGram: 150, caloriesPer100g: 77, proteinPer100g: 2.0, carbsPer100g: 17.5, fatPer100g: 0.1, fiberPer100g: 2.2 },
-  { id: "sweet_potatoes", name: "Sweet Potatoes", category: "veggies", portionText: "~130g portion", defaultGram: 130, caloriesPer100g: 86, proteinPer100g: 1.6, carbsPer100g: 20.1, fatPer100g: 0.1, fiberPer100g: 3.0 },
-  { id: "yams", name: "Yams", category: "veggies", portionText: "~130g portion", defaultGram: 130, caloriesPer100g: 118, proteinPer100g: 1.5, carbsPer100g: 27.9, fatPer100g: 0.2, fiberPer100g: 4.1 },
-  { id: "cassava", name: "Cassava (Yuca)", category: "veggies", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 160, proteinPer100g: 1.4, carbsPer100g: 38.0, fatPer100g: 0.3, fiberPer100g: 1.8 },
-  { id: "taro", name: "Taro Root", category: "veggies", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 112, proteinPer100g: 1.5, carbsPer100g: 26.5, fatPer100g: 0.2, fiberPer100g: 4.1 },
-
-  // --- PROTEINS: Powders & Supplements ---
-  { id: "whey", name: "Whey Protein Concentrate", category: "proteins", portionText: "~30g portion", defaultGram: 30, caloriesPer100g: 380, proteinPer100g: 80.0, carbsPer100g: 6.0, fatPer100g: 4.0, fiberPer100g: 0 },
-  { id: "whey_isolate", name: "Whey Protein Isolate", category: "proteins", portionText: "~30g portion", defaultGram: 30, caloriesPer100g: 370, proteinPer100g: 90.0, carbsPer100g: 1.0, fatPer100g: 0.5, fiberPer100g: 0 },
-  { id: "casein", name: "Micellar Casein Protein", category: "proteins", portionText: "~30g portion", defaultGram: 30, caloriesPer100g: 360, proteinPer100g: 78.0, carbsPer100g: 4.0, fatPer100g: 1.5, fiberPer100g: 0 },
-  { id: "pea_protein", name: "Pea Protein Powder", category: "proteins", portionText: "~30g portion", defaultGram: 30, caloriesPer100g: 400, proteinPer100g: 80.0, carbsPer100g: 7.0, fatPer100g: 7.0, fiberPer100g: 4.0 },
-  { id: "soy_protein", name: "Soy Protein Isolate", category: "proteins", portionText: "~30g portion", defaultGram: 30, caloriesPer100g: 380, proteinPer100g: 88.0, carbsPer100g: 3.0, fatPer100g: 1.0, fiberPer100g: 1.0 },
-  { id: "hemp_protein", name: "Hemp Protein Powder", category: "proteins", portionText: "~30g portion", defaultGram: 30, caloriesPer100g: 370, proteinPer100g: 50.0, carbsPer100g: 26.0, fatPer100g: 12.0, fiberPer100g: 20.0 },
-  { id: "egg_white_powder", name: "Egg White Protein Powder", category: "proteins", portionText: "~30g portion", defaultGram: 30, caloriesPer100g: 380, proteinPer100g: 82.0, carbsPer100g: 5.0, fatPer100g: 0.0, fiberPer100g: 0 },
-  { id: "collagen", name: "Collagen Peptides", category: "proteins", portionText: "~20g portion", defaultGram: 20, caloriesPer100g: 360, proteinPer100g: 90.0, carbsPer100g: 0.0, fatPer100g: 0.0, fiberPer100g: 0 },
-
-  // --- DAIRY & FATS: Dairy Products & Alternatives ---
-  { id: "whole_milk", name: "Whole Milk", category: "dairy", portionText: "~250g portion", defaultGram: 250, caloriesPer100g: 61, proteinPer100g: 3.2, carbsPer100g: 4.8, fatPer100g: 3.3, fiberPer100g: 0 },
-  { id: "skim_milk", name: "Skim Milk", category: "dairy", portionText: "~250g portion", defaultGram: 250, caloriesPer100g: 34, proteinPer100g: 3.4, carbsPer100g: 5.0, fatPer100g: 0.1, fiberPer100g: 0 },
-  { id: "greek_yogurt", name: "Greek Yogurt (Non-fat)", category: "dairy", portionText: "~150g portion", defaultGram: 150, caloriesPer100g: 59, proteinPer100g: 10.0, carbsPer100g: 3.6, fatPer100g: 0.4, fiberPer100g: 0 },
-  { id: "plain_yogurt", name: "Plain Whole Yogurt", category: "dairy", portionText: "~150g portion", defaultGram: 150, caloriesPer100g: 61, proteinPer100g: 3.5, carbsPer100g: 4.7, fatPer100g: 3.3, fiberPer100g: 0 },
-  { id: "cottage_cheese", name: "Cottage Cheese (Low-fat)", category: "dairy", portionText: "~100g portion", defaultGram: 100, caloriesPer100g: 81, proteinPer100g: 11.0, carbsPer100g: 4.7, fatPer100g: 2.3, fiberPer100g: 0 },
-  { id: "cheddar_cheese", name: "Cheddar Cheese", category: "dairy", portionText: "~30g portion", defaultGram: 30, caloriesPer100g: 403, proteinPer100g: 25.0, carbsPer100g: 1.3, fatPer100g: 33.0, fiberPer100g: 0 },
-  { id: "mozzarella", name: "Mozzarella Cheese", category: "dairy", portionText: "~30g portion", defaultGram: 30, caloriesPer100g: 280, proteinPer100g: 28.0, carbsPer100g: 3.1, fatPer100g: 17.0, fiberPer100g: 0 },
-  { id: "parmesan", name: "Parmesan Cheese", category: "dairy", portionText: "~20g portion", defaultGram: 20, caloriesPer100g: 431, proteinPer100g: 38.0, carbsPer100g: 4.1, fatPer100g: 29.0, fiberPer100g: 0 },
-  { id: "feta", name: "Feta Cheese", category: "dairy", portionText: "~30g portion", defaultGram: 30, caloriesPer100g: 264, proteinPer100g: 14.0, carbsPer100g: 4.1, fatPer100g: 21.0, fiberPer100g: 0 },
-  { id: "swiss_cheese", name: "Swiss Cheese", category: "dairy", portionText: "~30g portion", defaultGram: 30, caloriesPer100g: 380, proteinPer100g: 27.0, carbsPer100g: 1.4, fatPer100g: 28.0, fiberPer100g: 0 },
-  { id: "heavy_cream", name: "Heavy Cream", category: "dairy", portionText: "~30g portion", defaultGram: 30, caloriesPer100g: 340, proteinPer100g: 2.8, carbsPer100g: 2.7, fatPer100g: 36.0, fiberPer100g: 0 },
-  { id: "sour_cream", name: "Sour Cream", category: "dairy", portionText: "~30g portion", defaultGram: 30, caloriesPer100g: 198, proteinPer100g: 2.4, carbsPer100g: 4.6, fatPer100g: 19.0, fiberPer100g: 0 },
-  { id: "butter", name: "Unsalted Butter", category: "dairy", portionText: "~14g portion", defaultGram: 14, caloriesPer100g: 717, proteinPer100g: 0.9, carbsPer100g: 0.1, fatPer100g: 81.0, fiberPer100g: 0 },
-  { id: "ghee", name: "Ghee (Clarified Butter)", category: "dairy", portionText: "~14g portion", defaultGram: 14, caloriesPer100g: 876, proteinPer100g: 0.0, carbsPer100g: 0.0, fatPer100g: 99.0, fiberPer100g: 0 },
-  { id: "kefir", name: "Plain Kefir", category: "dairy", portionText: "~200g portion", defaultGram: 200, caloriesPer100g: 55, proteinPer100g: 3.5, carbsPer100g: 4.0, fatPer100g: 2.7, fiberPer100g: 0 },
-  { id: "almond_milk", name: "Almond Milk", category: "dairy", portionText: "~250g portion", defaultGram: 250, caloriesPer100g: 15, proteinPer100g: 0.5, carbsPer100g: 0.3, fatPer100g: 1.1, fiberPer100g: 0.2 },
-  { id: "oat_milk", name: "Oat Milk", category: "dairy", portionText: "~250g portion", defaultGram: 250, caloriesPer100g: 48, proteinPer100g: 1.0, carbsPer100g: 7.0, fatPer100g: 1.5, fiberPer100g: 0.8 },
-  { id: "soy_milk", name: "Soy Milk", category: "dairy", portionText: "~250g portion", defaultGram: 250, caloriesPer100g: 33, proteinPer100g: 2.8, carbsPer100g: 1.8, fatPer100g: 1.6, fiberPer100g: 0.4 },
-  { id: "coconut_milk", name: "Coconut Milk (Carton)", category: "dairy", portionText: "~250g portion", defaultGram: 250, caloriesPer100g: 20, proteinPer100g: 0.2, carbsPer100g: 1.0, fatPer100g: 2.0, fiberPer100g: 0 },
-  { id: "cashew_milk", name: "Cashew Milk", category: "dairy", portionText: "~250g portion", defaultGram: 250, caloriesPer100g: 25, proteinPer100g: 0.5, carbsPer100g: 1.0, fatPer100g: 2.0, fiberPer100g: 0 },
-  { id: "hemp_milk", name: "Hemp Milk", category: "dairy", portionText: "~250g portion", defaultGram: 250, caloriesPer100g: 46, proteinPer100g: 1.3, carbsPer100g: 0.4, fatPer100g: 4.6, fiberPer100g: 0.2 },
-  { id: "coconut_yogurt", name: "Coconut Milk Yogurt", category: "dairy", portionText: "~150g portion", defaultGram: 150, caloriesPer100g: 100, proteinPer100g: 1.0, carbsPer100g: 9.0, fatPer100g: 7.0, fiberPer100g: 1.0 },
-
-  // --- DAIRY & FATS: Nuts, Seeds & Oils ---
-  { id: "almonds", name: "Almonds", category: "dairy", portionText: "~28g portion", defaultGram: 28, caloriesPer100g: 579, proteinPer100g: 21.0, carbsPer100g: 21.6, fatPer100g: 49.9, fiberPer100g: 12.5 },
-  { id: "walnuts", name: "Walnuts", category: "dairy", portionText: "~28g portion", defaultGram: 28, caloriesPer100g: 654, proteinPer100g: 15.2, carbsPer100g: 13.7, fatPer100g: 65.2, fiberPer100g: 6.7 },
-  { id: "cashews", name: "Cashews", category: "dairy", portionText: "~28g portion", defaultGram: 28, caloriesPer100g: 553, proteinPer100g: 18.2, carbsPer100g: 30.2, fatPer100g: 43.8, fiberPer100g: 3.3 },
-  { id: "peanuts", name: "Peanuts", category: "dairy", portionText: "~28g portion", defaultGram: 28, caloriesPer100g: 567, proteinPer100g: 25.8, carbsPer100g: 16.1, fatPer100g: 49.2, fiberPer100g: 8.5 },
-  { id: "pistachios", name: "Pistachios", category: "dairy", portionText: "~28g portion", defaultGram: 28, caloriesPer100g: 560, proteinPer100g: 20.0, carbsPer100g: 27.0, fatPer100g: 45.0, fiberPer100g: 10.0 },
-  { id: "pecans", name: "Pecans", category: "dairy", portionText: "~28g portion", defaultGram: 28, caloriesPer100g: 691, proteinPer100g: 9.2, carbsPer100g: 13.9, fatPer100g: 72.0, fiberPer100g: 9.6 },
-  { id: "macadamia", name: "Macadamia Nuts", category: "dairy", portionText: "~28g portion", defaultGram: 28, caloriesPer100g: 718, proteinPer100g: 7.9, carbsPer100g: 13.8, fatPer100g: 75.8, fiberPer100g: 8.6 },
-  { id: "brazil_nuts", name: "Brazil Nuts", category: "dairy", portionText: "~28g portion", defaultGram: 28, caloriesPer100g: 659, proteinPer100g: 14.3, carbsPer100g: 12.3, fatPer100g: 67.1, fiberPer100g: 7.5 },
-  { id: "chia_seeds", name: "Chia Seeds", category: "dairy", portionText: "~15g portion", defaultGram: 15, caloriesPer100g: 486, proteinPer100g: 16.5, carbsPer100g: 42.1, fatPer100g: 30.7, fiberPer100g: 34.4 },
-  { id: "flaxseeds", name: "Ground Flaxseeds", category: "dairy", portionText: "~15g portion", defaultGram: 15, caloriesPer100g: 534, proteinPer100g: 18.3, carbsPer100g: 28.9, fatPer100g: 42.2, fiberPer100g: 27.3 },
-  { id: "hemp_seeds", name: "Hemp Seeds", category: "dairy", portionText: "~30g portion", defaultGram: 30, caloriesPer100g: 553, proteinPer100g: 31.6, carbsPer100g: 8.7, fatPer100g: 48.8, fiberPer100g: 4.0 },
-  { id: "pumpkin_seeds", name: "Pumpkin Seeds (Pepitas)", category: "dairy", portionText: "~30g portion", defaultGram: 30, caloriesPer100g: 559, proteinPer100g: 30.2, carbsPer100g: 10.7, fatPer100g: 49.0, fiberPer100g: 6.0 },
-  { id: "sunflower_seeds", name: "Sunflower Seeds", category: "dairy", portionText: "~30g portion", defaultGram: 30, caloriesPer100g: 584, proteinPer100g: 20.8, carbsPer100g: 20.0, fatPer100g: 51.5, fiberPer100g: 8.6 },
-  { id: "sesame_seeds", name: "Sesame Seeds", category: "dairy", portionText: "~15g portion", defaultGram: 15, caloriesPer100g: 573, proteinPer100g: 17.7, carbsPer100g: 23.4, fatPer100g: 49.7, fiberPer100g: 11.8 },
-  { id: "olive_oil", name: "Extra Virgin Olive Oil", category: "dairy", portionText: "~15g portion", defaultGram: 15, caloriesPer100g: 884, proteinPer100g: 0.0, carbsPer100g: 0.0, fatPer100g: 100.0, fiberPer100g: 0 },
-  { id: "avocado_oil", name: "Avocado Oil", category: "dairy", portionText: "~15g portion", defaultGram: 15, caloriesPer100g: 884, proteinPer100g: 0.0, carbsPer100g: 0.0, fatPer100g: 100.0, fiberPer100g: 0 },
-  { id: "coconut_oil", name: "Coconut Oil", category: "dairy", portionText: "~15g portion", defaultGram: 15, caloriesPer100g: 862, proteinPer100g: 0.0, carbsPer100g: 0.0, fatPer100g: 100.0, fiberPer100g: 0 },
-  { id: "sesame_oil", name: "Sesame Oil", category: "dairy", portionText: "~15g portion", defaultGram: 15, caloriesPer100g: 884, proteinPer100g: 0.0, carbsPer100g: 0.0, fatPer100g: 100.0, fiberPer100g: 0 },
-  { id: "peanut_oil", name: "Peanut Oil", category: "dairy", portionText: "~15g portion", defaultGram: 15, caloriesPer100g: 884, proteinPer100g: 0.0, carbsPer100g: 0.0, fatPer100g: 100.0, fiberPer100g: 0 },
-  { id: "canola_oil", name: "Canola Oil", category: "dairy", portionText: "~15g portion", defaultGram: 15, caloriesPer100g: 884, proteinPer100g: 0.0, carbsPer100g: 0.0, fatPer100g: 100.0, fiberPer100g: 0 },
-  { id: "sunflower_oil", name: "Sunflower Oil", category: "dairy", portionText: "~15g portion", defaultGram: 15, caloriesPer100g: 884, proteinPer100g: 0.0, carbsPer100g: 0.0, fatPer100g: 100.0, fiberPer100g: 0 }
-];
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="flex h-screen bg-[#11131a] text-white overflow-hidden">
+      <Sidebar />
+      <main className="flex-1 overflow-y-auto bg-[#11131a] p-6">
+        {children}
+      </main>
+    </div>
+  );
+}
