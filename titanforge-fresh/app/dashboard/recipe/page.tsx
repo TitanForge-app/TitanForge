@@ -15,16 +15,44 @@ interface Ingredient {
   fiber: number;
 }
 
+interface SavedRecipe {
+  id: string;
+  name: string;
+  items: { ingredient: Ingredient; count: number }[];
+  totalWeight: number;
+  totalCalories: number;
+  totalProtein: number;
+  totalCarbs: number;
+  totalFats: number;
+  totalFiber: number;
+}
+
 const ALL_INGREDIENTS: Ingredient[] = [
-  { id: '1', name: 'Strawberries', category: 'Fruits', weight: 100, calories: 32, protein: 0.7, carbs: 7.7, fats: 0.3, fiber: 2.0 },
-  { id: '2', name: 'Blueberries', category: 'Fruits', weight: 100, calories: 57, protein: 0.7, carbs: 14.5, fats: 0.3, fiber: 2.4 },
-  { id: '3', name: 'Raspberries', category: 'Fruits', weight: 100, calories: 52, protein: 1.2, carbs: 11.9, fats: 0.7, fiber: 6.5 },
-  { id: '4', name: 'Spinach', category: 'Veggies', weight: 50, calories: 12, protein: 1.4, carbs: 1.8, fats: 0.2, fiber: 1.1 },
-  { id: '5', name: 'Kale', category: 'Veggies', weight: 50, calories: 25, protein: 2.1, carbs: 4.4, fats: 0.5, fiber: 1.8 },
-  { id: '6', name: 'Whey Protein Isolate', category: 'Proteins', weight: 45, calories: 180, protein: 42, carbs: 2.0, fats: 0.5, fiber: 0 },
-  { id: '7', name: 'Greek Yogurt', category: 'Proteins', weight: 150, calories: 100, protein: 15, carbs: 6.0, fats: 0.4, fiber: 0 },
-  { id: '8', name: 'Almond Butter', category: 'Dairy & Fats', weight: 30, calories: 190, protein: 7.0, carbs: 6.0, fats: 16.0, fiber: 3.0 },
-  { id: '9', name: 'Avocado', category: 'Dairy & Fats', weight: 50, calories: 80, protein: 1.0, carbs: 4.0, fats: 7.0, fiber: 3.0 },
+  // Fruits
+  { id: 'f1', name: 'Strawberries', category: 'Fruits', weight: 100, calories: 32, protein: 0.7, carbs: 7.7, fats: 0.3, fiber: 2.0 },
+  { id: 'f2', name: 'Blueberries', category: 'Fruits', weight: 100, calories: 57, protein: 0.7, carbs: 14.5, fats: 0.3, fiber: 2.4 },
+  { id: 'f3', name: 'Bananas', category: 'Fruits', weight: 120, calories: 105, protein: 1.3, carbs: 27.0, fats: 0.3, fiber: 3.1 },
+  { id: 'f4', name: 'Raspberries', category: 'Fruits', weight: 100, calories: 52, protein: 1.2, carbs: 11.9, fats: 0.7, fiber: 6.5 },
+  { id: 'f5', name: 'Green Apple', category: 'Fruits', weight: 150, calories: 78, protein: 0.4, carbs: 21.0, fats: 0.2, fiber: 3.6 },
+  { id: 'f6', name: 'Watermelon', category: 'Fruits', weight: 150, calories: 45, protein: 0.9, carbs: 11.0, fats: 0.2, fiber: 0.6 },
+  
+  // Veggies
+  { id: 'v1', name: 'Spinach', category: 'Veggies', weight: 50, calories: 12, protein: 1.4, carbs: 1.8, fats: 0.2, fiber: 1.1 },
+  { id: 'v2', name: 'Kale', category: 'Veggies', weight: 50, calories: 25, protein: 2.1, carbs: 4.4, fats: 0.5, fiber: 1.8 },
+  { id: 'v3', name: 'Cucumber', category: 'Veggies', weight: 100, calories: 15, protein: 0.6, carbs: 3.6, fats: 0.1, fiber: 0.5 },
+  { id: 'v4', name: 'Ginger', category: 'Veggies', weight: 15, calories: 12, protein: 0.3, carbs: 2.6, fats: 0.1, fiber: 0.3 },
+
+  // Proteins
+  { id: 'p1', name: 'Whey Protein Isolate', category: 'Proteins', weight: 45, calories: 180, protein: 42, carbs: 2.0, fats: 0.5, fiber: 0 },
+  { id: 'p2', name: 'Greek Yogurt', category: 'Proteins', weight: 150, calories: 100, protein: 15, carbs: 6.0, fats: 0.4, fiber: 0 },
+  { id: 'p3', name: 'Plant Protein Blend', category: 'Proteins', weight: 40, calories: 150, protein: 30, carbs: 4.0, fats: 2.0, fiber: 2.0 },
+  { id: 'p4', name: 'Collagen Peptides', category: 'Proteins', weight: 20, calories: 70, protein: 18, carbs: 0, fats: 0, fiber: 0 },
+
+  // Dairy & Fats
+  { id: 'd1', name: 'Almond Butter', category: 'Dairy & Fats', weight: 30, calories: 190, protein: 7.0, carbs: 6.0, fats: 16.0, fiber: 3.0 },
+  { id: 'd2', name: 'Avocado', category: 'Dairy & Fats', weight: 50, calories: 80, protein: 1.0, carbs: 4.0, fats: 7.0, fiber: 3.0 },
+  { id: 'd3', name: 'Oat Milk', category: 'Dairy & Fats', weight: 200, calories: 120, protein: 3.0, carbs: 16.0, fats: 5.0, fiber: 2.0 },
+  { id: 'd4', name: 'Chia Seeds', category: 'Dairy & Fats', weight: 15, calories: 70, protein: 2.5, carbs: 6.0, fats: 4.5, fiber: 5.0 },
 ];
 
 export default function SmartRecipeScale() {
@@ -32,9 +60,22 @@ export default function SmartRecipeScale() {
   const [jarItems, setJarItems] = useState<{ ingredient: Ingredient; count: number }[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [recipeName, setRecipeName] = useState<string>('');
-  const [savedPresets, setSavedPresets] = useState<{ name: string; totalWeight: number; totalCals: number }[]>([
-    { name: 'Anabolic Power Surge', totalWeight: 320, totalCals: 420 },
-    { name: 'Green Detox Cleanse', totalWeight: 250, totalCals: 94 },
+  const [activeVoicePrompt, setActiveVoicePrompt] = useState<string>('MIC ON: Listening... Try saying "START BLEND"');
+  const [motorStatus, setMotorStatus] = useState<string>('STANDBY');
+  
+  // Saved history vault state
+  const [savedRecipes, setSavedRecipes] = useState<SavedRecipe[]>([
+    {
+      id: 'preset-1',
+      name: 'Anabolic Power Surge',
+      items: [{ ingredient: ALL_INGREDIENTS[0], count: 1 }, { ingredient: ALL_INGREDIENTS[10], count: 1 }],
+      totalWeight: 145,
+      totalCalories: 212,
+      totalProtein: 42.7,
+      totalCarbs: 9.7,
+      totalFats: 0.8,
+      totalFiber: 2.0
+    }
   ]);
 
   // Add item to jar scale
@@ -50,19 +91,7 @@ export default function SmartRecipeScale() {
     });
   };
 
-  // Clear jar
   const clearJar = () => setJarItems([]);
-
-  // Save recipe
-  const saveRecipe = () => {
-    if (!recipeName.trim()) return;
-    const totalWeight = jarItems.reduce((acc, curr) => acc + (curr.ingredient.weight * curr.count), 0);
-    const totalCals = jarItems.reduce((acc, curr) => acc + (curr.ingredient.calories * curr.count), 0);
-    
-    setSavedPresets(prev => [...prev, { name: recipeName, totalWeight, totalCals }]);
-    setRecipeName('');
-    alert(`Recipe "${recipeName}" saved to vault!`);
-  };
 
   // Calculations for sidebar telemetry
   const totalWeight = jarItems.reduce((acc, curr) => acc + (curr.ingredient.weight * curr.count), 0);
@@ -71,6 +100,43 @@ export default function SmartRecipeScale() {
   const totalCarbs = jarItems.reduce((acc, curr) => acc + (curr.ingredient.carbs * curr.count), 0);
   const totalFats = jarItems.reduce((acc, curr) => acc + (curr.ingredient.fats * curr.count), 0);
   const totalFiber = jarItems.reduce((acc, curr) => acc + (curr.ingredient.fiber * curr.count), 0);
+
+  // Save recipe to vault
+  const saveRecipe = () => {
+    if (!recipeName.trim() || jarItems.length === 0) {
+      alert('Please add ingredients and enter a recipe name.');
+      return;
+    }
+    const newRecipe: SavedRecipe = {
+      id: Date.now().toString(),
+      name: recipeName,
+      items: [...jarItems],
+      totalWeight,
+      totalCalories,
+      totalProtein,
+      totalCarbs,
+      totalFats,
+      totalFiber
+    };
+    setSavedRecipes(prev => [...prev, newRecipe]);
+    setRecipeName('');
+    alert(`Recipe "${recipeName}" saved successfully!`);
+  };
+
+  // Load recipe back into jar
+  const loadRecipeIntoJar = (recipe: SavedRecipe) => {
+    setJarItems([...recipe.items]);
+    setActiveVoicePrompt(`Loaded recipe: ${recipeName || recipe.name}`);
+  };
+
+  // Trigger Blender Action
+  const triggerBlend = (mode: string) => {
+    setMotorStatus(`RUNNING (${mode})`);
+    setActiveVoicePrompt(`Voice Command Executed: ${mode}`);
+    setTimeout(() => {
+      setMotorStatus('STANDBY');
+    }, 4000);
+  };
 
   const filteredIngredients = ALL_INGREDIENTS.filter(item => {
     const matchesCategory = selectedCategory === 'All Items' || item.category === selectedCategory;
@@ -87,7 +153,7 @@ export default function SmartRecipeScale() {
             TITAN<span className="text-red-600">FORGE</span>
           </Link>
           <span className="text-zinc-700">/</span>
-          <span className="text-xs text-red-500 font-bold uppercase">Smart Recipe & Load Cell Measurement</span>
+          <span className="text-xs text-red-500 font-bold uppercase">SMART RECIPE & LOAD CELL MEASUREMENT</span>
         </div>
         <Link 
           href="/dashboard" 
@@ -97,40 +163,64 @@ export default function SmartRecipeScale() {
         </Link>
       </nav>
 
-      {/* Main Grid Layout (Content + Live Scale Sidebar) */}
+      {/* Main Layout Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 max-w-7xl mx-auto w-full items-start">
         
-        {/* Left 3 Columns: Controls & Ingredients Picker */}
+        {/* Left 3 Columns */}
         <div className="lg:col-span-3 flex flex-col gap-6">
           
-          {/* Status Header */}
+          {/* Status Bar */}
           <div className="bg-zinc-950 p-4 rounded-xl border border-zinc-800/80 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span>
               <span className="text-xs font-bold text-green-400">SENSOR: CONNECTED</span>
             </div>
-            <span className="text-xs text-zinc-500">TitanForge Load Cell v2.4</span>
+            <span className="text-xs text-zinc-500">TitanForge Hardware Unit v2.4</span>
           </div>
 
-          {/* Quick Athlete Presets */}
-          <div className="bg-zinc-950 p-5 rounded-2xl border border-zinc-800/80">
-            <h3 className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-3">Quick Load Athlete Presets:</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {savedPresets.map((preset, idx) => (
-                <div key={idx} className="p-3 bg-zinc-900 rounded-xl border border-zinc-800 flex justify-between items-center">
-                  <div>
-                    <div className="text-sm font-bold text-white">{preset.name}</div>
-                    <div className="text-[10px] text-zinc-500">{preset.totalWeight}g • ~{preset.totalCals} kcal</div>
-                  </div>
-                  <button onClick={() => alert(`Loaded preset: ${preset.name}`)} className="px-3 py-1 bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white border border-red-600/40 text-xs font-bold rounded-lg transition-colors">
-                    Load
-                  </button>
-                </div>
-              ))}
+          {/* Voice Recognition & Motor Control Deck */}
+          <div className="bg-zinc-950 p-5 rounded-2xl border border-zinc-800/80 flex flex-col gap-4 shadow-xl">
+            <div className="flex justify-between items-center">
+              <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest">BLENDER MOTOR CONTROL [{motorStatus}]</span>
+              <span className="text-xs text-yellow-500 font-bold bg-yellow-950/40 px-3 py-1 rounded-full border border-yellow-600/30 animate-pulse">
+                🎙️ {activeVoicePrompt}
+              </span>
+            </div>
+
+            {/* Voice Command Simulator Bar */}
+            <div className="bg-red-950/30 border border-red-600/30 p-3 rounded-xl flex flex-wrap gap-2 items-center justify-between">
+              <span className="text-xs text-red-400 font-bold uppercase">HARDWARE VOICE PROMPTS:</span>
+              <div className="flex gap-2">
+                <button onClick={() => triggerBlend('START BLEND')} className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-lg shadow transition-all">
+                  Say &quot;START BLEND&quot;
+                </button>
+                <button onClick={() => triggerBlend('PULSE MODE')} className="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-700 text-xs font-bold rounded-lg transition-all">
+                  Say &quot;PULSE&quot;
+                </button>
+                <button onClick={() => setMotorStatus('STANDBY')} className="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-700 text-xs font-bold rounded-lg transition-all">
+                  Say &quot;STOP&quot;
+                </button>
+              </div>
+            </div>
+
+            {/* Mode Selector Buttons */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+              <button onClick={() => triggerBlend('SMOOTHIE')} className="py-2.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs font-bold rounded-xl text-white transition-all">
+                Smoothie Mode
+              </button>
+              <button onClick={() => triggerBlend('PROTEIN SHAKE')} className="py-2.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs font-bold rounded-xl text-white transition-all">
+                Protein Shake Mode
+              </button>
+              <button onClick={() => triggerBlend('ICE CRUSH')} className="py-2.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs font-bold rounded-xl text-white transition-all">
+                Ice Crush Mode
+              </button>
+              <button onClick={() => triggerBlend('START SMOOTHIE')} className="py-2.5 bg-red-600 hover:bg-red-700 text-xs font-bold rounded-xl text-white shadow-lg shadow-red-600/30 transition-all">
+                START SMOOTHIE
+              </button>
             </div>
           </div>
 
-          {/* Filter Tabs & Search */}
+          {/* Category Filter Tabs & Search */}
           <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
             <div className="flex flex-wrap gap-2">
               {['All Items', 'Fruits', 'Veggies', 'Proteins', 'Dairy & Fats'].map((cat) => (
@@ -149,14 +239,14 @@ export default function SmartRecipeScale() {
             </div>
             <input 
               type="text"
-              placeholder="Search ingredient..."
+              placeholder="Search ingredient (e.g. Bananas)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="bg-zinc-900 border border-zinc-800 px-4 py-2 rounded-xl text-xs text-white w-full md:w-64 focus:outline-none focus:border-red-600"
             />
           </div>
 
-          {/* Ingredient Cards Grid */}
+          {/* Ingredients Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {filteredIngredients.map((item) => (
               <div key={item.id} className="bg-zinc-950 p-5 rounded-2xl border border-zinc-800 flex flex-col justify-between hover:border-red-600/50 transition-all">
@@ -177,9 +267,10 @@ export default function SmartRecipeScale() {
 
         </div>
 
-        {/* Right 1 Column: Live Jar Load Cell Scale Sidebar */}
+        {/* Right 1 Column: Live Scale Sidebar & History Vault */}
         <div className="bg-zinc-950 p-5 rounded-2xl border border-zinc-800 flex flex-col justify-between shadow-2xl lg:sticky lg:top-6">
           <div>
+            {/* Scale Header */}
             <div className="border-b border-zinc-900 pb-4 mb-4">
               <h3 className="text-xs font-bold text-zinc-400 uppercase tracking-wider">JAR LOAD CELL SCALE</h3>
               <p className="text-[10px] text-zinc-600">Live weight & macro telemetry</p>
@@ -217,7 +308,7 @@ export default function SmartRecipeScale() {
             {/* Jar Contents */}
             <div className="mb-6">
               <div className="text-xs font-bold text-zinc-400 mb-2">JAR CONTENTS & WEIGHT CONTROL:</div>
-              <div className="bg-black p-3 rounded-xl border border-zinc-900 min-h-[120px] max-h-[180px] overflow-y-auto text-xs">
+              <div className="bg-black p-3 rounded-xl border border-zinc-900 min-h-[100px] max-h-[140px] overflow-y-auto text-xs">
                 {jarItems.length === 0 ? (
                   <span className="text-zinc-600 italic">Jar is empty. Add ingredients to begin.</span>
                 ) : (
@@ -230,6 +321,28 @@ export default function SmartRecipeScale() {
                 )}
               </div>
             </div>
+
+            {/* Saved Recipes History Vault */}
+            <div className="mb-6">
+              <div className="text-xs font-bold text-zinc-400 mb-2">SAVED RECIPES HISTORY:</div>
+              <div className="bg-black p-3 rounded-xl border border-zinc-900 max-h-[150px] overflow-y-auto flex flex-col gap-2 text-xs">
+                {savedRecipes.map((rec) => (
+                  <div key={rec.id} className="p-2 bg-zinc-900 rounded-lg border border-zinc-800 flex justify-between items-center">
+                    <div>
+                      <div className="font-bold text-white">{rec.name}</div>
+                      <div className="text-[10px] text-zinc-500">{rec.totalWeight}g • {Math.round(rec.totalCalories)} kcal</div>
+                    </div>
+                    <button 
+                      onClick={() => loadRecipeIntoJar(rec)}
+                      className="px-2.5 py-1 bg-red-600 hover:bg-red-700 text-white text-[10px] font-bold rounded-md transition-colors"
+                    >
+                      Load
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+
           </div>
 
           {/* Save & Clear Actions */}
@@ -237,7 +350,7 @@ export default function SmartRecipeScale() {
             <div className="flex gap-2">
               <input 
                 type="text"
-                placeholder="Recipe Name..."
+                placeholder="Name recipe to save..."
                 value={recipeName}
                 onChange={(e) => setRecipeName(e.target.value)}
                 className="bg-black border border-zinc-800 px-3 py-2 rounded-xl text-xs text-white w-full focus:outline-none focus:border-red-600"
