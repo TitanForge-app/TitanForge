@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 interface Ingredient {
@@ -60,9 +60,13 @@ export default function SmartRecipeScale() {
   const [jarItems, setJarItems] = useState<{ ingredient: Ingredient; count: number }[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [recipeName, setRecipeName] = useState<string>('');
-  const [activeVoicePrompt, setActiveVoicePrompt] = useState<string>('MIC ON: Listening... Try saying "START BLEND"');
-  const [motorStatus, setMotorStatus] = useState<string>('STANDBY');
   
+  // Controls state
+  const [voiceEnabled, setVoiceEnabled] = useState<boolean>(true);
+  const [motorStatus, setMotorStatus] = useState<boolean>(false); // false = STANDBY, true = RUNNING
+  const [activeMode, setActiveMode] = useState<string>('STANDBY');
+  const [timeLeft, setTimeLeft] = useState<number>(0);
+
   // Saved history vault state
   const [savedRecipes, setSavedRecipes] = useState<SavedRecipe[]>([
     {
@@ -78,6 +82,24 @@ export default function SmartRecipeScale() {
     }
   ]);
 
+  // Handle countdown timer for active blending mode
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (motorStatus && timeLeft > 0) {
+      timer = setInterval(() => {
+        setTimeLeft(prev => {
+          if (prev <= 1) {
+            setMotorStatus(false);
+            setActiveMode('STANDBY');
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(timer);
+  }, [motorStatus, timeLeft]);
+
   // Add item to jar scale
   const addToJar = (ingredient: Ingredient) => {
     setJarItems(prev => {
@@ -89,6 +111,18 @@ export default function SmartRecipeScale() {
       }
       return [...prev, { ingredient, count: 1 }];
     });
+  };
+
+  // Increase/Decrease quantity helpers
+  const increaseCount = (id: string) => {
+    setJarItems(prev => prev.map(item => item.ingredient.id === id ? { ...item, count: item.count + 1 } : item));
+  };
+
+  const decreaseCount = (id: string) => {
+    setJarItems(prev => prev
+      .map(item => item.ingredient.id === id ? { ...item, count: item.count - 1 } : item)
+      .filter(item => item.count > 0)
+    );
   };
 
   const clearJar = () => setJarItems([]);
@@ -126,16 +160,21 @@ export default function SmartRecipeScale() {
   // Load recipe back into jar
   const loadRecipeIntoJar = (recipe: SavedRecipe) => {
     setJarItems([...recipe.items]);
-    setActiveVoicePrompt(`Loaded recipe: ${recipeName || recipe.name}`);
   };
 
-  // Trigger Blender Action
-  const triggerBlend = (mode: string) => {
-    setMotorStatus(`RUNNING (${mode})`);
-    setActiveVoicePrompt(`Voice Command Executed: ${mode}`);
-    setTimeout(() => {
-      setMotorStatus('STANDBY');
-    }, 4000);
+  // Toggle or start blender motor with timeline duration (e.g. 45s)
+  const toggleBlendMode = (modeName: string, durationSec: number = 45) => {
+    if (motorStatus && activeMode === modeName) {
+      // Stop it if clicking the active toggle again
+      setMotorStatus(false);
+      setActiveMode('STANDBY');
+      setTimeLeft(0);
+    } else {
+      // Start it
+      setMotorStatus(true);
+      setActiveMode(modeName);
+      setTimeLeft(durationSec);
+    }
   };
 
   const filteredIngredients = ALL_INGREDIENTS.filter(item => {
@@ -180,42 +219,97 @@ export default function SmartRecipeScale() {
 
           {/* Voice Recognition & Motor Control Deck */}
           <div className="bg-zinc-950 p-5 rounded-2xl border border-zinc-800/80 flex flex-col gap-4 shadow-xl">
-            <div className="flex justify-between items-center">
-              <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest">BLENDER MOTOR CONTROL [{motorStatus}]</span>
-              <span className="text-xs text-yellow-500 font-bold bg-yellow-950/40 px-3 py-1 rounded-full border border-yellow-600/30 animate-pulse">
-                🎙️ {activeVoicePrompt}
-              </span>
+            <div className="flex justify-between items-center flex-wrap gap-2">
+              <div className="flex items-center gap-3">
+                <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest">
+                  MOTOR: [{motorStatus ? `RUNNING: ${activeMode}` : 'STANDBY'}]
+                </span>
+                {motorStatus && (
+                  <span className="text-xs bg-red-600 text-white font-bold px-2 py-0.5 rounded animate-pulse">
+                    ⏱️ {timeLeft}s remaining
+                  </span>
+                )}
+              </div>
+
+              {/* Voice Command On/Off Toggle Button */}
+              <div className="flex items-center gap-2 bg-zinc-900 px-3 py-1 rounded-xl border border-zinc-800">
+                <span className="text-[10px] text-zinc-400 font-bold uppercase">Voice Control:</span>
+                <button 
+                  onClick={() => setVoiceEnabled(!voiceEnabled)}
+                  className={`px-3 py-1 text-xs font-bold rounded-lg transition-all ${
+                    voiceEnabled ? 'bg-green-600 text-white shadow-lg shadow-green-600/30' : 'bg-zinc-800 text-zinc-400'
+                  }`}
+                >
+                  {voiceEnabled ? 'ON' : 'OFF'}
+                </button>
+              </div>
             </div>
 
             {/* Voice Command Simulator Bar */}
-            <div className="bg-red-950/30 border border-red-600/30 p-3 rounded-xl flex flex-wrap gap-2 items-center justify-between">
-              <span className="text-xs text-red-400 font-bold uppercase">HARDWARE VOICE PROMPTS:</span>
+            <div className={`border p-3 rounded-xl flex flex-wrap gap-2 items-center justify-between transition-all ${
+              voiceEnabled ? 'bg-red-950/30 border-red-600/30' : 'bg-zinc-900/40 border-zinc-800 opacity-50'
+            }`}>
+              <span className="text-xs text-red-400 font-bold uppercase">
+                {voiceEnabled ? 'MIC ACTIVE: LISTENING...' : 'MIC MUTED (OFF)'}
+              </span>
               <div className="flex gap-2">
-                <button onClick={() => triggerBlend('START BLEND')} className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-lg shadow transition-all">
+                <button 
+                  disabled={!voiceEnabled} 
+                  onClick={() => toggleBlendMode('VOICE BLEND', 45)} 
+                  className="px-3 py-1.5 bg-red-600 hover:bg-red-700 disabled:bg-zinc-800 text-white text-xs font-bold rounded-lg shadow transition-all"
+                >
                   Say &quot;START BLEND&quot;
                 </button>
-                <button onClick={() => triggerBlend('PULSE MODE')} className="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-700 text-xs font-bold rounded-lg transition-all">
+                <button 
+                  disabled={!voiceEnabled} 
+                  onClick={() => toggleBlendMode('PULSE', 15)} 
+                  className="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-700 text-xs font-bold rounded-lg transition-all"
+                >
                   Say &quot;PULSE&quot;
                 </button>
-                <button onClick={() => setMotorStatus('STANDBY')} className="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-700 text-xs font-bold rounded-lg transition-all">
+                <button 
+                  disabled={!voiceEnabled} 
+                  onClick={() => { setMotorStatus(false); setActiveMode('STANDBY'); setTimeLeft(0); }} 
+                  className="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-700 text-xs font-bold rounded-lg transition-all"
+                >
                   Say &quot;STOP&quot;
                 </button>
               </div>
             </div>
 
-            {/* Mode Selector Buttons */}
+            {/* Mode Selector Buttons with Toggle functionality */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-              <button onClick={() => triggerBlend('SMOOTHIE')} className="py-2.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs font-bold rounded-xl text-white transition-all">
-                Smoothie Mode
+              <button 
+                onClick={() => toggleBlendMode('SMOOTHIE', 45)} 
+                className={`py-2.5 border text-xs font-bold rounded-xl transition-all ${
+                  motorStatus && activeMode === 'SMOOTHIE' ? 'bg-green-600 text-white border-green-500 animate-pulse' : 'bg-zinc-900 hover:bg-zinc-800 border-zinc-800 text-white'
+                }`}
+              >
+                {motorStatus && activeMode === 'SMOOTHIE' ? 'STOP SMOOTHIE' : 'Smoothie Mode (45s)'}
               </button>
-              <button onClick={() => triggerBlend('PROTEIN SHAKE')} className="py-2.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs font-bold rounded-xl text-white transition-all">
-                Protein Shake Mode
+              <button 
+                onClick={() => toggleBlendMode('PROTEIN SHAKE', 30)} 
+                className={`py-2.5 border text-xs font-bold rounded-xl transition-all ${
+                  motorStatus && activeMode === 'PROTEIN SHAKE' ? 'bg-green-600 text-white border-green-500 animate-pulse' : 'bg-zinc-900 hover:bg-zinc-800 border-zinc-800 text-white'
+                }`}
+              >
+                {motorStatus && activeMode === 'PROTEIN SHAKE' ? 'STOP PROTEIN SHAKE' : 'Protein Shake (30s)'}
               </button>
-              <button onClick={() => triggerBlend('ICE CRUSH')} className="py-2.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs font-bold rounded-xl text-white transition-all">
-                Ice Crush Mode
+              <button 
+                onClick={() => toggleBlendMode('ICE CRUSH', 20)} 
+                className={`py-2.5 border text-xs font-bold rounded-xl transition-all ${
+                  motorStatus && activeMode === 'ICE CRUSH' ? 'bg-green-600 text-white border-green-500 animate-pulse' : 'bg-zinc-900 hover:bg-zinc-800 border-zinc-800 text-white'
+                }`}
+              >
+                {motorStatus && activeMode === 'ICE CRUSH' ? 'STOP ICE CRUSH' : 'Ice Crush (20s)'}
               </button>
-              <button onClick={() => triggerBlend('START SMOOTHIE')} className="py-2.5 bg-red-600 hover:bg-red-700 text-xs font-bold rounded-xl text-white shadow-lg shadow-red-600/30 transition-all">
-                START SMOOTHIE
+              <button 
+                onClick={() => toggleBlendMode('START SMOOTHIE', 60)} 
+                className={`py-2.5 text-xs font-bold rounded-xl transition-all shadow-lg ${
+                  motorStatus && activeMode === 'START SMOOTHIE' ? 'bg-amber-600 hover:bg-amber-700 text-white shadow-amber-600/30' : 'bg-red-600 hover:bg-red-700 text-white shadow-red-600/30'
+                }`}
+              >
+                {motorStatus && activeMode === 'START SMOOTHIE' ? 'STOP BLENDER' : 'START SMOOTHIE'}
               </button>
             </div>
           </div>
@@ -305,17 +399,34 @@ export default function SmartRecipeScale() {
               </div>
             </div>
 
-            {/* Jar Contents */}
+            {/* Jar Contents with Increase & Decrease Controls */}
             <div className="mb-6">
-              <div className="text-xs font-bold text-zinc-400 mb-2">JAR CONTENTS & WEIGHT CONTROL:</div>
-              <div className="bg-black p-3 rounded-xl border border-zinc-900 min-h-[100px] max-h-[140px] overflow-y-auto text-xs">
+              <div className="text-xs font-bold text-zinc-400 mb-2">JAR CONTENTS & VOLUME CONTROL:</div>
+              <div className="bg-black p-3 rounded-xl border border-zinc-900 min-h-[110px] max-h-[160px] overflow-y-auto text-xs flex flex-col gap-2">
                 {jarItems.length === 0 ? (
                   <span className="text-zinc-600 italic">Jar is empty. Add ingredients to begin.</span>
                 ) : (
                   jarItems.map((item, idx) => (
-                    <div key={idx} className="flex justify-between items-center py-1 border-b border-zinc-900/50">
-                      <span>{item.ingredient.name} (x{item.count})</span>
-                      <span className="text-red-500 font-bold">{item.ingredient.weight * item.count}g</span>
+                    <div key={idx} className="flex justify-between items-center py-1.5 border-b border-zinc-900/50">
+                      <div className="flex flex-col">
+                        <span className="font-bold text-white">{item.ingredient.name}</span>
+                        <span className="text-[10px] text-red-500 font-semibold">{item.ingredient.weight * item.count}g</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 bg-zinc-900 p-1 rounded-lg border border-zinc-800">
+                        <button 
+                          onClick={() => decreaseCount(item.ingredient.id)}
+                          className="w-5 h-5 bg-zinc-800 hover:bg-red-600 text-white rounded flex items-center justify-center font-bold text-xs transition-colors"
+                        >
+                          -
+                        </button>
+                        <span className="w-5 text-center font-bold text-white">{item.count}</span>
+                        <button 
+                          onClick={() => increaseCount(item.ingredient.id)}
+                          className="w-5 h-5 bg-zinc-800 hover:bg-green-600 text-white rounded flex items-center justify-center font-bold text-xs transition-colors"
+                        >
+                          +
+                        </button>
+                      </div>
                     </div>
                   ))
                 )}
@@ -325,7 +436,7 @@ export default function SmartRecipeScale() {
             {/* Saved Recipes History Vault */}
             <div className="mb-6">
               <div className="text-xs font-bold text-zinc-400 mb-2">SAVED RECIPES HISTORY:</div>
-              <div className="bg-black p-3 rounded-xl border border-zinc-900 max-h-[150px] overflow-y-auto flex flex-col gap-2 text-xs">
+              <div className="bg-black p-3 rounded-xl border border-zinc-900 max-h-[140px] overflow-y-auto flex flex-col gap-2 text-xs">
                 {savedRecipes.map((rec) => (
                   <div key={rec.id} className="p-2 bg-zinc-900 rounded-lg border border-zinc-800 flex justify-between items-center">
                     <div>
