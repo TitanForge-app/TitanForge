@@ -34,16 +34,16 @@ export default function Dashboard() {
           <p className="text-xs text-zinc-500">Manage your 5 authenticated athletic fingerprint profiles.</p>
         </Link>
 
-        {/* Card 2: Recovery Sync */}
-        <div className="bg-zinc-950 p-6 rounded-2xl border border-zinc-800/80 shadow-lg">
+        {/* Card 2: Recovery Sync (Linked to Recipe Scaler) */}
+        <Link href="/dashboard/recipe" className="bg-zinc-950 p-6 rounded-2xl border border-zinc-800/80 shadow-lg hover:border-red-600/50 transition-all block">
           <span className="text-xs font-bold text-red-500 uppercase tracking-widest">Nutritional Sync</span>
-          <h3 className="text-xl font-bold mt-2 mb-4">Post-Workout Macro</h3>
+          <h3 className="text-xl font-bold mt-2 mb-4">Post-Workout Macro →</h3>
           <div className="flex items-center justify-between p-4 bg-zinc-900 rounded-xl border border-zinc-800 mb-4">
             <span className="text-sm text-zinc-300">Target Protein</span>
             <span className="text-white font-bold">45g Optimal</span>
           </div>
           <p className="text-xs text-zinc-500">Blender calibrated automatically from last training session.</p>
-        </div>
+        </Link>
 
         {/* Card 3: Voice Activation Status */}
         <Link href="/dashboard/voice" className="bg-zinc-950 p-6 rounded-2xl border border-zinc-800/80 shadow-lg hover:border-red-600/50 transition-all block">
